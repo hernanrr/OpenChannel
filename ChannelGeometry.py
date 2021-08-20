@@ -36,7 +36,7 @@ class ChannelXSection(ABC):
         \left(\frac{2}{3R}\frac{dR}{dy} + \frac{1}{A}\frac{dA}{dy} \right)
 
         where R and y are the hydraulic radius and the water depth
-        respectively. 
+        respectively.
         """
         pass
 
@@ -45,7 +45,7 @@ class ChannelXSection(ABC):
         return self.area() / self.wetted_perimeter()
 
     def hydraulic_depth(self):
-        """Returns the hydraulic depth of the channel cross-section."""        
+        """Returns the hydraulic depth of the channel cross-section."""
         return self.area() / self.top_width()
 
 
