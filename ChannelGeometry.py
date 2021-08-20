@@ -9,24 +9,43 @@ class ChannelXSection(ABC):
     """A class to represent channel cross-sections."""
     @abstractmethod
     def area(self):
+        """Returns the wetted area of the channel cross-section."""
         pass
 
     @abstractmethod
     def wetted_perimeter(self):
+        """Returns the wetted perimeter of the channel cross-section."""
         pass
 
     @abstractmethod
     def top_width(self):
+        """Returns the water surface width of the channel cross-section."""
         pass
 
     @abstractmethod
     def shape_function(self):
+        r"""Returns the channel shape function of the cross-section.
+
+        Notes
+        -----
+        The channel shape function results from the solution to Manning's
+        equation for normal depth using the Newton-Raphson method. It is
+        defined as:
+
+        .. math::
+        \left(\frac{2}{3R}\frac{dR}{dy} + \frac{1}{A}\frac{dA}{dy} \right)
+
+        where R and y are the hydraulic radius and the water depth
+        respectively. 
+        """
         pass
 
     def hydraulic_radius(self):
+        """Returns the hydraulic radius of the channel cross-section."""
         return self.area() / self.wetted_perimeter()
 
     def hydraulic_depth(self):
+        """Returns the hydraulic depth of the channel cross-section."""        
         return self.area() / self.top_width()
 
 
