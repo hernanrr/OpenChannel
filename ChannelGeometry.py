@@ -2,11 +2,28 @@
 
 import math
 import numpy as np
+from abc import ABC, abstractmethod
 
 
-class ChannelXSection:
+class ChannelXSection(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def wetted_perimeter(self):
+        pass
+
+    @abstractmethod
+    def top_width(self):
+        pass
+
+    @abstractmethod
+    def shape_function(self):
+        pass
+
     def hydraulic_radius(self):
-        return self.area() / self.perimeter()
+        return self.area() / self.wetted_perimeter()
 
     def hydraulic_depth(self):
         return self.area() / self.top_width()
@@ -28,7 +45,7 @@ class Rectangular(ChannelXSection):
     def area(self):
         return self.width * self.depth
 
-    def perimeter(self):
+    def wetted_perimeter(self):
         return self.width + 2 * self.depth
 
     def top_width(self):
@@ -36,7 +53,7 @@ class Rectangular(ChannelXSection):
 
     def shape_function(self):
         numerator = 5 * self.width + 6 * self.depth
-        denominator = 3 * self.depth * self.perimeter()
+        denominator = 3 * self.depth * self.wetted_perimeter()
         return numerator / denominator
 
 
@@ -48,7 +65,7 @@ class Triangular(ChannelXSection):
     def area(self):
         return self.slope * self.depth ** 2
 
-    def perimeter(self):
+    def wetted_perimeter(self):
         return 2 * self.depth * math.sqrt(1 + self.slope ** 2)
 
     def top_width(self):
@@ -67,7 +84,7 @@ class Trapezoidal(ChannelXSection):
     def area(self):
         return (self.width + self.slope * self.depth) * self.depth
 
-    def perimeter(self):
+    def wetted_perimeter(self):
         return (self.width
                 + 2 * self.depth * math.sqrt(1 + self.slope ** 2))
 
