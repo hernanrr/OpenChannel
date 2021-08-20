@@ -6,8 +6,6 @@ class TestChannelGeometry(unittest.TestCase):
     def test_create_rectangular_channel(self):
         self.rectangular = cg.Rectangular(width=10, depth=2)
 
-        self.rectangular = cg.Rectangular(width=[10, 5], depth=[2, 1.5])
-
     def test_create_rectangular_channel_invalid_size(self):
         with self.assertRaises(ValueError):
             cg.Rectangular(width=0, depth=2)
