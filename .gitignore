@@ -39,3 +39,7 @@ Thumbs.db
 # Emacs generated files #
 #########################
 *~
+
+# Python bytecompiled code
+##########################
+__pycache__
