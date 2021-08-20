@@ -3,7 +3,15 @@
 import numpy as np
 
 
-class Rectangular:
+class ChannelXSection:
+    def hydraulic_radius(self):
+        return self.area() / self.perimeter()
+
+    def hydraulic_depth(self):
+        return self.area() / self.top_width()
+
+
+class Rectangular(ChannelXSection):
     def __init__(self, width, depth):
         width = np.array(width)
         depth = np.array(depth)
@@ -22,14 +30,8 @@ class Rectangular:
     def perimeter(self):
         return self.width + 2 * self.depth
 
-    def hydraulic_radius(self):
-        return self.area() / self.perimeter()
-
     def top_width(self):
         return self.width
-
-    def hydraulic_depth(self):
-        return self.depth
 
     def shape_function(self):
         numerator = 5 * self.width + 6 * self.depth
