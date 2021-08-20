@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import math
 import numpy as np
 
 
@@ -37,6 +38,24 @@ class Rectangular(ChannelXSection):
         numerator = 5 * self.width + 6 * self.depth
         denominator = 3 * self.depth * self.perimeter()
         return numerator / denominator
+
+
+class Triangular(ChannelXSection):
+    def __init__(self, depth, slope):
+        self.depth = depth
+        self.slope = slope
+
+    def area(self):
+        return self.slope * self.depth ** 2
+
+    def perimeter(self):
+        return 2 * self.depth * math.sqrt(1 + self.slope ** 2)
+
+    def top_width(self):
+        return 2 * self.depth * self.slope
+
+    def shape_function(self):
+        return 8 / (3 * self.depth)
 
 
 def main():
