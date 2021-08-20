@@ -37,7 +37,7 @@ class Rectangular(ChannelXSection):
     Parameters
     ----------
     width : int or float
-    Bottom width of the channel
+        Bottom width of the channel
     depth : int or float
         Water surface elevation measured from the bottom of the channel.
 
@@ -46,29 +46,25 @@ class Rectangular(ChannelXSection):
     ValueError
     Only accepts positive, real numbers (int or float).
 
-
-
     Examples
     --------
     >>> foo = Rectangular(10, 2)
     >>> foo.width
-    array(10)
+    10
     >>> foo.depth
-    array(2)
+    2
 
     """
     def __init__(self, width, depth):
         """Constructor for rectangular channel cross-section."""
-        width = np.array(width)
-        depth = np.array(depth)
 
-        if width.dtype.type is np.str_ or np.all(width <= 0):
+        if not isinstance(width, (float, int)) or np.all(width <= 0):
             raise ValueError('Width must be a positive number')
-        if depth.dtype.type is np.str_ or np.all(depth <= 0):
+        if not isinstance(depth, (float, int)) or np.all(depth <= 0):
             raise ValueError('Depth must be a positive number')
 
-        self.width = width
-        self.depth = depth
+        self.width = float(width)
+        self.depth = float(depth)
 
     def area(self):
         return self.width * self.depth
