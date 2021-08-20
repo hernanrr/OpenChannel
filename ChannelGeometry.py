@@ -6,6 +6,7 @@ from abc import ABC, abstractmethod
 
 
 class ChannelXSection(ABC):
+    """A class to represent channel cross-sections."""
     @abstractmethod
     def area(self):
         pass
@@ -30,7 +31,34 @@ class ChannelXSection(ABC):
 
 
 class Rectangular(ChannelXSection):
+    """
+    A class to represent rectangular channel cross-sections.
+
+    Parameters
+    ----------
+    width : int or float
+    Bottom width of the channel
+    depth : int or float
+        Water surface elevation measured from the bottom of the channel.
+
+    Raises
+    ------
+    ValueError
+    Only accepts positive, real numbers (int or float).
+
+
+
+    Examples
+    --------
+    >>> foo = Rectangular(10, 2)
+    >>> foo.width
+    array(10)
+    >>> foo.depth
+    array(2)
+
+    """
     def __init__(self, width, depth):
+        """Constructor for rectangular channel cross-section."""
         width = np.array(width)
         depth = np.array(depth)
 
