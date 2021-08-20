@@ -93,12 +93,40 @@ class Trapezoidal(ChannelXSection):
 
     def shape_function(self):
         A = math.sqrt(1 + self.slope ** 2)
-        num = (self.top_width
-               * (5 * self.width + 6 * self.depth * A)
-               * (4 * self.slope * self.depth ** 2 * A))
-        denom = (3 * self.depth * (self.width + self.depth * self.slope)
-                 * (self.width + 2 * self.depth * A))
-        return num / denom
+        numerator = (self.top_width
+                     * (5 * self.width + 6 * self.depth * A)
+                     * (4 * self.slope * self.depth ** 2 * A))
+        denominator = (3 * self.depth
+                       * (self.width + self.depth * self.slope)
+                       * (self.width + 2 * self.depth * A))
+        return numerator / denominator
+
+
+class Circular(ChannelXSection):
+    def __init__(self, diameter, depth):
+        self.diameter = diameter
+        self.depth = depth
+        self.theta = 2 * math.acos(1 - (2 * depth)/diameter)
+
+    def area(self):
+        return ((1 / 8)
+                * (self.theta - math.sin(self.theta))
+                * self.diameter ** 2)
+
+    def wetted_perimeter(self):
+        return 1/2 * self.theta * self.diameter
+
+    def top_width(self):
+        return math.sin(self.theta/2) * self.diameter
+
+    def shape_function(self):
+        numerator = (4 * (2 * math.sin(self.theta)
+                          + 3 * self.theta
+                          - 5 * self.theta * math.cos(self.theta)))
+        denominator = (3 * self.diameter * self.theta
+                       * (self.theta - math.sin(self.theta))
+                       * math.sin(self.theta/2))
+        return numerator / denominator
 
 
 def main():
