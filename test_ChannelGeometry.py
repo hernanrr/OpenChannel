@@ -43,6 +43,10 @@ class TestChannelGeometry(unittest.TestCase):
         self.assertEqual(r.width, 10)
         self.assertEqual(r.depth, 2)
 
+    def test_create_rectangular_channel_valid(self):
+        self.assertEqual(self.rectangular.width, 10)
+        self.assertEqual(self.rectangular.depth, 2)
+
 
 if __name__ == '__main__':
     unittest.main()
