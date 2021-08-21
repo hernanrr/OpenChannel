@@ -74,5 +74,10 @@ class TestTriangularChannelGeometry(unittest.TestCase):
 
     def test_triangular_area(self):
         self.assertEqual(self.triangular.area(), 8)
+
+    def test_triangular_wetter_perimeter(self):
+        self.assertAlmostEqual(self.triangular.wetted_perimeter(), 8.9442719099)
+
+
 if __name__ == '__main__':
     unittest.main()
