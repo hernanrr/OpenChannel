@@ -50,6 +50,9 @@ class TestChannelGeometry(unittest.TestCase):
     def test_rectangular_area(self):
         self.assertEqual(self.rectangular.area(), 20)
 
+    def test_wetted_perimeter(self):
+        self.assertEqual(self.rectangular.wetted_perimeter(), 14)
+
 
 if __name__ == '__main__':
     unittest.main()
