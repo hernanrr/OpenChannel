@@ -1,6 +1,6 @@
 import unittest
 import ChannelGeometry as cg
-
+import math
 
 class TestRectangularChannelGeometry(unittest.TestCase):
 
@@ -118,6 +118,30 @@ class TestTrapezoidalChannelGeometry(unittest.TestCase):
 
     def test_trapezoidal_shape_function(self):
         self.assertEqual(self.trapezoidal.shape_function(), 66.89297719882501)
+
+
+class TestCircularChannelGeometry(unittest.TestCase):
+
+    def setUp(self):
+        self.circular = cg.Circular(diameter=2, depth=1)
+
+    def test_circular_area(self):
+        self.assertEqual(self.circular.area(), math.pi/2)
+
+    def test_circular_wetted_perimeter(self):
+        self.assertEqual(self.circular.wetted_perimeter(), math.pi)
+
+    def test_circular_top_width(self):
+        self.assertEqual(self.circular.top_width(), 2)
+
+    def test_circular_hydraulic_radius(self):
+        self.assertEqual(self.circular.hydraulic_radius(), 0.5)
+
+    def test_circular_hydraulic_depth(self):
+        self.assertEqual(self.circular.hydraulic_depth(), math.pi/4)
+
+    def test_circular_shape_function(self):
+        self.assertEqual(self.circular.shape_function(), 1.6976527263135504)
 
 
 if __name__ == '__main__':
