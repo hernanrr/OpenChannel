@@ -87,8 +87,37 @@ class TestTriangularChannelGeometry(unittest.TestCase):
         self.assertEqual(self.triangular.hydraulic_radius(),
                          0.8944271909999159)
 
+    def test_triangular_hydraulic_depth(self):
+        self.assertEqual(self.triangular.hydraulic_depth(), 1)
+
     def test_triangular_shape_function(self):
         self.assertEqual(self.triangular.shape_function(), 4/3)
+
+
+class TestTrapezoidalChannelGeometry(unittest.TestCase):
+
+    def setUp(self):
+        self.trapezoidal = cg.Trapezoidal(width=2, depth=2, slope=2)
+
+    def test_trapezoidal_area(self):
+        self.assertEqual(self.trapezoidal.area(), 12)
+
+    def test_trapezoidal_wetted_perimeter(self):
+        self.assertEqual(self.trapezoidal.wetted_perimeter(),
+                         10.94427190999916)
+
+    def test_trapezoidal_top_width(self):
+        self.assertEqual(self.trapezoidal.top_width(), 10)
+
+    def test_trapezoidal_hydraulic_radius(self):
+        self.assertEqual(self.trapezoidal.hydraulic_radius(),
+                         1.0964639857893408)
+
+    def test_trapezoidal_hydraulic_depth(self):
+        self.assertEqual(self.trapezoidal.hydraulic_depth(), 1.2)
+
+    def test_trapezoidal_shape_function(self):
+        self.assertEqual(self.trapezoidal.shape_function(), 66.89297719882501)
 
 
 if __name__ == '__main__':
