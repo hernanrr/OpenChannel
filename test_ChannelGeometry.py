@@ -2,6 +2,7 @@ import unittest
 import ChannelGeometry as cg
 import math
 
+
 class TestRectangularChannelGeometry(unittest.TestCase):
 
     def setUp(self):
