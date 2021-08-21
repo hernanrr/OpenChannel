@@ -76,10 +76,15 @@ class TestTriangularChannelGeometry(unittest.TestCase):
         self.assertEqual(self.triangular.area(), 8)
 
     def test_triangular_wetted_perimeter(self):
-        self.assertAlmostEqual(self.triangular.wetted_perimeter(), 8.944271909)
+        self.assertEqual(self.triangular.wetted_perimeter(),
+                         8.94427190999916)
 
     def test_triangular_top_width(self):
         self.assertEqual(self.triangular.top_width(), 8)
+
+    def test_triangular_hydraulic_radius(self):
+        self.assertEqual(self.triangular.hydraulic_radius(),
+                         0.8944271909999159)
 
 
 if __name__ == '__main__':
