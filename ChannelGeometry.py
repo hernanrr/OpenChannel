@@ -138,7 +138,7 @@ class Trapezoidal(ChannelXSection):
         A = math.sqrt(1 + self.slope ** 2)
         numerator = (self.top_width()
                      * (5 * self.width + 6 * self.depth * A)
-                     * (4 * self.slope * self.depth ** 2 * A))
+                     + (4 * self.slope * self.depth ** 2 * A))
         denominator = (3 * self.depth
                        * (self.width + self.depth * self.slope)
                        * (self.width + 2 * self.depth * A))
