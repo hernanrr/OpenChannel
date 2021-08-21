@@ -67,5 +67,12 @@ class TestRectangularChannelGeometry(unittest.TestCase):
         self.assertAlmostEqual(self.rectangular.shape_function(), 0.73809523)
 
 
+class TestTriangularChannelGeometry(unittest.TestCase):
+
+    def setUp(self):
+        self.triangular = cg.Triangular(depth=2, slope=2)
+
+    def test_triangular_area(self):
+        self.assertEqual(self.triangular.area(), 8)
 if __name__ == '__main__':
     unittest.main()
