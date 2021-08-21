@@ -117,7 +117,7 @@ class TestTrapezoidalChannelGeometry(unittest.TestCase):
         self.assertEqual(self.trapezoidal.hydraulic_depth(), 1.2)
 
     def test_trapezoidal_shape_function(self):
-        self.assertEqual(self.trapezoidal.shape_function(), 66.89297719882501)
+        self.assertEqual(self.trapezoidal.shape_function(), 1.1164702214327413)
 
 
 class TestCircularChannelGeometry(unittest.TestCase):
