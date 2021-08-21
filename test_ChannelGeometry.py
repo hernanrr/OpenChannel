@@ -59,6 +59,9 @@ class TestChannelGeometry(unittest.TestCase):
     def test_rectangular_hydraulic_radius(self):
         self.assertAlmostEqual(self.rectangular.hydraulic_radius(), 1.42857142)
 
+    def test_rectangular_hydraulic_depth(self):
+        self.assertEqual(self.rectangular.hydraulic_depth(), 2)
+
 
 if __name__ == '__main__':
     unittest.main()
