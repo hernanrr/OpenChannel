@@ -1,7 +1,8 @@
 import unittest
 import ChannelGeometry as cg
 
-class TestChannelGeometry(unittest.TestCase):
+
+class TestRectangularChannelGeometry(unittest.TestCase):
 
     def setUp(self):
         self.rectangular = cg.Rectangular(width=10, depth=2)
