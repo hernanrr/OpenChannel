@@ -136,7 +136,7 @@ class Trapezoidal(ChannelXSection):
 
     def shape_function(self):
         A = math.sqrt(1 + self.slope ** 2)
-        numerator = (self.top_width
+        numerator = (self.top_width()
                      * (5 * self.width + 6 * self.depth * A)
                      * (4 * self.slope * self.depth ** 2 * A))
         denominator = (3 * self.depth
