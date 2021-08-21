@@ -87,6 +87,9 @@ class TestTriangularChannelGeometry(unittest.TestCase):
         self.assertEqual(self.triangular.hydraulic_radius(),
                          0.8944271909999159)
 
+    def test_triangular_shape_function(self):
+        self.assertEqual(self.triangular.shape_function(), 4/3)
+
 
 if __name__ == '__main__':
     unittest.main()
