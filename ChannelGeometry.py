@@ -262,6 +262,8 @@ class Circular(ChannelXSection):
             raise ValueError('Diameter must be a positive number')
         if not isinstance(depth, (float, int)) or depth <= 0:
             raise ValueError('Depth must be a positive number')
+        if depth > diameter:
+            raise ValueError('Depth must be smaller or equal than diameter')
 
         self.diameter = diameter
         self.depth = depth
