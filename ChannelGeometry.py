@@ -80,12 +80,12 @@ class Rectangular(ChannelXSection):
 
     """
     def __init__(self, width: Union[int, float],
-                 depth: Union[int, float])  -> None:
+                 depth: Union[int, float]) -> None:
         """Constructor for rectangular channel cross-section."""
 
-        if not isinstance(width, (float, int)) or np.all(width <= 0):
+        if not isinstance(width, (float, int)) or width <= 0:
             raise ValueError('Width must be a positive number')
-        if not isinstance(depth, (float, int)) or np.all(depth <= 0):
+        if not isinstance(depth, (float, int)) or depth <= 0:
             raise ValueError('Depth must be a positive number')
 
         self.width = float(width)
@@ -138,9 +138,9 @@ class Triangular(ChannelXSection):
     def __init__(self, depth: Union[int, float],
                  side_slope: Union[int, float]) -> None:
 
-        if not isinstance(depth, (float, int)) or np.all(depth <= 0):
+        if not isinstance(depth, (float, int)) or depth <= 0:
             raise ValueError('Depth must be a positive number')
-        if not isinstance(side_slope, (float, int)) or np.all(side_slope <= 0):
+        if not isinstance(side_slope, (float, int)) or side_slope <= 0:
             raise ValueError('Side slope must be a positive number')
 
         self.depth = depth
@@ -194,11 +194,11 @@ class Trapezoidal(ChannelXSection):
     def __init__(self, width: Union[int, float], depth: Union[int, float],
                  side_slope: Union[int, float]) -> None:
 
-        if not isinstance(width, (float, int)) or np.all(width <= 0):
+        if not isinstance(width, (float, int)) or width <= 0:
             raise ValueError('Width must be a positive number')
-        if not isinstance(depth, (float, int)) or np.all(depth <= 0):
+        if not isinstance(depth, (float, int)) or depth <= 0:
             raise ValueError('Depth must be a positive number')
-        if not isinstance(side_slope, (float, int)) or np.all(side_slope <= 0):
+        if not isinstance(side_slope, (float, int)) or side_slope <= 0:
             raise ValueError('Side slope must be a positive number')
 
         self.width = width
@@ -258,9 +258,9 @@ class Circular(ChannelXSection):
     def __init__(self, diameter: Union[int, float],
                  depth: Union[int, float]) -> None:
 
-        if not isinstance(diameter, (float, int)) or np.all(diameter <= 0):
+        if not isinstance(diameter, (float, int)) or diameter <= 0:
             raise ValueError('Diameter must be a positive number')
-        if not isinstance(depth, (float, int)) or np.all(depth <= 0):
+        if not isinstance(depth, (float, int)) or depth <= 0:
             raise ValueError('Depth must be a positive number')
 
         self.diameter = diameter
