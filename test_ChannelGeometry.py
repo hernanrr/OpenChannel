@@ -254,6 +254,7 @@ class TestCircularChannelGeometry(unittest.TestCase):
     def test_create_circular_channel_valid(self):
         self.assertEqual(self.circular.diameter, 2)
         self.assertEqual(self.circular.depth, 1)
+        self.assertGreaterEqual(self.circular.diameter, self.circular.depth)
 
     def test_circular_area(self):
         self.assertEqual(self.circular.area(), math.pi/2)
