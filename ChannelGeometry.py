@@ -3,27 +3,28 @@
 import math
 import numpy as np
 from abc import ABC, abstractmethod
+import typing
 
 
 class ChannelXSection(ABC):
     """A class to represent channel cross-sections."""
     @abstractmethod
-    def area(self):
+    def area(self) -> float:
         """Returns the wetted area of the channel cross-section."""
         pass
 
     @abstractmethod
-    def wetted_perimeter(self):
+    def wetted_perimeter(self) -> float:
         """Returns the wetted perimeter of the channel cross-section."""
         pass
 
     @abstractmethod
-    def top_width(self):
+    def top_width(self) -> float:
         """Returns the water surface width of the channel cross-section."""
         pass
 
     @abstractmethod
-    def shape_function(self):
+    def shape_function(self) -> float:
         r"""Returns the channel shape function of the cross-section.
 
         Notes
@@ -40,11 +41,11 @@ class ChannelXSection(ABC):
         """
         pass
 
-    def hydraulic_radius(self):
+    def hydraulic_radius(self) -> float:
         """Returns the hydraulic radius of the channel cross-section."""
         return self.area() / self.wetted_perimeter()
 
-    def hydraulic_depth(self):
+    def hydraulic_depth(self) -> float:
         """Returns the hydraulic depth of the channel cross-section."""
         return self.area() / self.top_width()
 
