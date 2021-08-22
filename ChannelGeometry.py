@@ -90,16 +90,16 @@ class Rectangular(ChannelXSection):
         self.width = float(width)
         self.depth = float(depth)
 
-    def area(self):
+    def area(self) -> float:
         return self.width * self.depth
 
-    def wetted_perimeter(self):
+    def wetted_perimeter(self) -> float:
         return self.width + 2 * self.depth
 
-    def top_width(self):
+    def top_width(self) -> float:
         return self.width
 
-    def shape_function(self):
+    def shape_function(self) -> float:
         numerator = 5 * self.width + 6 * self.depth
         denominator = 3 * self.depth * self.wetted_perimeter()
         return numerator / denominator
@@ -145,16 +145,16 @@ class Triangular(ChannelXSection):
         self.depth = depth
         self.side_slope = side_slope
 
-    def area(self):
+    def area(self) -> float:
         return self.side_slope * self.depth ** 2
 
-    def wetted_perimeter(self):
+    def wetted_perimeter(self) -> float:
         return 2 * self.depth * math.sqrt(1 + self.side_slope ** 2)
 
-    def top_width(self):
+    def top_width(self) -> float:
         return 2 * self.depth * self.side_slope
 
-    def shape_function(self):
+    def shape_function(self) -> float:
         return 8 / (3 * self.depth)
 
 
@@ -204,17 +204,17 @@ class Trapezoidal(ChannelXSection):
         self.depth = depth
         self.side_slope = side_slope
 
-    def area(self):
+    def area(self) -> float:
         return (self.width + self.side_slope * self.depth) * self.depth
 
-    def wetted_perimeter(self):
+    def wetted_perimeter(self) -> float:
         return (self.width
                 + 2 * self.depth * math.sqrt(1 + self.side_slope ** 2))
 
-    def top_width(self):
+    def top_width(self) -> float:
         return self.width + 2 * self.depth * self.side_slope
 
-    def shape_function(self):
+    def shape_function(self) -> float:
         A = math.sqrt(1 + self.side_slope ** 2)
         numerator = (self.top_width()
                      * (5 * self.width + 6 * self.depth * A)
@@ -266,7 +266,7 @@ class Circular(ChannelXSection):
         self.depth = depth
         self.theta = 2 * math.acos(1 - (2 * depth) / diameter)
 
-    def area(self):
+    def area(self) -> float:
         return ((1 / 8)
                 * (self.theta - math.sin(self.theta))
                 * self.diameter ** 2)
@@ -274,10 +274,10 @@ class Circular(ChannelXSection):
     def wetted_perimeter(self):
         return 1 / 2 * self.theta * self.diameter
 
-    def top_width(self):
+    def top_width(self) -> float:
         return math.sin(self.theta / 2) * self.diameter
 
-    def shape_function(self):
+    def shape_function(self) -> float:
         numerator = (4 * (2 * math.sin(self.theta)
                           + 3 * self.theta
                           - 5 * self.theta * math.cos(self.theta)))
