@@ -3,7 +3,7 @@
 import math
 import numpy as np
 from abc import ABC, abstractmethod
-import typing
+from typing import Union
 
 
 class ChannelXSection(ABC):
@@ -102,7 +102,8 @@ class Rectangular(ChannelXSection):
 
 
 class Triangular(ChannelXSection):
-    def __init__(self, depth: Union[int, float]), side_slope: Union[int, float])):
+    def __init__(self, depth: Union[int, float],
+                 side_slope: Union[int, float]):
         self.depth = depth
         self.side_slope = side_slope
 
@@ -120,8 +121,8 @@ class Triangular(ChannelXSection):
 
 
 class Trapezoidal(ChannelXSection):
-    def __init__(self, width: Union[int, float]),
-    depth: Union[int, float]), side_slope: Union[int, float])):
+    def __init__(self, width: Union[int, float],
+                 depth: Union[int, float], side_slope: Union[int, float]):
         self.width = width
         self.depth = depth
         self.side_slope = side_slope
@@ -148,8 +149,8 @@ class Trapezoidal(ChannelXSection):
 
 
 class Circular(ChannelXSection):
-    def __init__(self, diameter: Union[int, float]),
-    depth: Union[int, float])):
+    def __init__(self, diameter: Union[int, float],
+                 depth: Union[int, float]):
         self.diameter = diameter
         self.depth = depth
         self.theta = 2 * math.acos(1 - (2 * depth)/diameter)
