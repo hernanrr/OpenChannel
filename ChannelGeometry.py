@@ -75,7 +75,7 @@ class Rectangular(ChannelXSection):
     2
 
     """
-    def __init__(self, width, depth):
+    def __init__(self, width: Union[int, float], depth: Union[int, float]):
         """Constructor for rectangular channel cross-section."""
 
         if not isinstance(width, (float, int)) or np.all(width <= 0):
@@ -102,7 +102,7 @@ class Rectangular(ChannelXSection):
 
 
 class Triangular(ChannelXSection):
-    def __init__(self, depth, slope):
+    def __init__(self, depth: Union[int, float]), slope: Union[int, float])):
         self.depth = depth
         self.slope = slope
 
@@ -120,7 +120,8 @@ class Triangular(ChannelXSection):
 
 
 class Trapezoidal(ChannelXSection):
-    def __init__(self, width, depth, slope):
+    def __init__(self, width: Union[int, float]),
+    depth: Union[int, float]), slope: Union[int, float])):
         self.width = width
         self.depth = depth
         self.slope = slope
@@ -147,7 +148,8 @@ class Trapezoidal(ChannelXSection):
 
 
 class Circular(ChannelXSection):
-    def __init__(self, diameter, depth):
+    def __init__(self, diameter: Union[int, float]),
+    depth: Union[int, float])):
         self.diameter = diameter
         self.depth = depth
         self.theta = 2 * math.acos(1 - (2 * depth)/diameter)
