@@ -60,7 +60,7 @@ class Rectangular(ChannelXSection):
     depth : int or float
         Water surface elevation from the bottom of the channel [m] or [ft]
 
-    Note: Unit consistency, correctness and compatibiluty is the user's
+    Note: Unit consistency, correctness and compatibility is the user's
     responsibility.
 
     Raises
@@ -104,6 +104,7 @@ class Rectangular(ChannelXSection):
 
 
 class Triangular(ChannelXSection):
+
     def __init__(self, depth: Union[int, float],
                  side_slope: Union[int, float]):
         self.depth = depth
