@@ -226,6 +226,34 @@ class Trapezoidal(ChannelXSection):
 
 
 class Circular(ChannelXSection):
+    """A class to represent circular channel cross-sections.
+
+    Parameters
+    ----------
+    diameter : int or float
+        Channel diameter or pipe inner diameter [m] or [ft]
+    depth : int or float
+        Water surface elevation from lowest point of the channel [m] or [ft]
+
+    Raises
+    ------
+    ValueError
+    Only accepts positive, real numbers (int or float).
+
+    Notes
+    -----
+    Unit consistency, correctness and compatibility is the user's
+    responsibility.
+
+    Examples
+    --------
+    >>> circle = Circular(0.2, 0.1)
+    >>> circle.diameter
+    0.2
+    >>> circle.depth
+    0.1
+    """
+
     def __init__(self, diameter: Union[int, float],
                  depth: Union[int, float]):
         self.diameter = diameter
