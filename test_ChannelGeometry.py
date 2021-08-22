@@ -77,6 +77,28 @@ class TestTriangularChannelGeometry(unittest.TestCase):
     def test_create_triangular_channel(self):
         self.triangular = cg.Triangular(depth=2, side_slope=2)
 
+    def test_create_triangular_channel_invalid_size(self):
+        with self.assertRaises(ValueError):
+            cg.Triangular(depth=0, side_slope=2)
+
+        with self.assertRaises(ValueError):
+            cg.Triangular(depth=-2.5, side_slope=2)
+
+        with self.assertRaises(ValueError):
+            cg.Triangular(depth='foo', side_slope=2)
+
+        with self.assertRaises(ValueError):
+            cg.Triangular(depth=2, side_slope=0)
+
+        with self.assertRaises(ValueError):
+            cg.Triangular(depth=2, side_slope=-2.5)
+
+        with self.assertRaises(ValueError):
+            cg.Triangular(depth=-2, side_slope='foo')
+
+        with self.assertRaises(ValueError):
+            cg.Triangular(depth=-2, side_slope=-2)
+
     def test_triangular_area(self):
         self.assertEqual(self.triangular.area(), 8)
 
