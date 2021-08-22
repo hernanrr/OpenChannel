@@ -99,6 +99,18 @@ class TestTriangularChannelGeometry(unittest.TestCase):
         with self.assertRaises(ValueError):
             cg.Triangular(depth=-2, side_slope=-2)
 
+    def test_create_triangular_channel_single_argument(self):
+        with self.assertRaises(TypeError):
+            cg.Triangular(depth=2)
+
+        with self.assertRaises(TypeError):
+            cg.Triangular(side_slope=2)
+
+    def test_create_triangular_channel_store_values(self):
+        triangle = cg.Triangular(depth=2, side_slope=2)
+        self.assertEqual(triangle.depth, 2)
+        self.assertEqual(triangle.side_slope, 2)
+
     def test_triangular_area(self):
         self.assertEqual(self.triangular.area(), 8)
 
