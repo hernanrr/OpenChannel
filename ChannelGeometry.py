@@ -264,7 +264,7 @@ class Circular(ChannelXSection):
 
         self.diameter = diameter
         self.depth = depth
-        self.theta = 2 * math.acos(1 - (2 * depth)/diameter)
+        self.theta = 2 * math.acos(1 - (2 * depth) / diameter)
 
     def area(self):
         return ((1 / 8)
@@ -272,10 +272,10 @@ class Circular(ChannelXSection):
                 * self.diameter ** 2)
 
     def wetted_perimeter(self):
-        return 1/2 * self.theta * self.diameter
+        return 1 / 2 * self.theta * self.diameter
 
     def top_width(self):
-        return math.sin(self.theta/2) * self.diameter
+        return math.sin(self.theta / 2) * self.diameter
 
     def shape_function(self):
         numerator = (4 * (2 * math.sin(self.theta)
@@ -283,7 +283,7 @@ class Circular(ChannelXSection):
                           - 5 * self.theta * math.cos(self.theta)))
         denominator = (3 * self.diameter * self.theta
                        * (self.theta - math.sin(self.theta))
-                       * math.sin(self.theta/2))
+                       * math.sin(self.theta / 2))
         return numerator / denominator
 
 
