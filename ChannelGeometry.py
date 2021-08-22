@@ -159,6 +159,37 @@ class Triangular(ChannelXSection):
 
 
 class Trapezoidal(ChannelXSection):
+    """A class to represent symmetrical trapezoidal channel cross-sections.
+
+    Parameters
+    ----------
+    width : int or float
+        Bottom width of the channel [m] or [ft]
+    depth : int or float
+        Water surface elevation from the bottom of the channel [m] or [ft]
+    side_slope : int or float
+        Horizontal distance per unit vertical rise of the side
+
+    Raises
+    ------
+    ValueError
+    Only accepts positive, real numbers (int or float).
+
+    Notes
+    -----
+    Unit consistency, correctness and compatibility is the user's
+    responsibility.
+
+    Examples
+    --------
+    >>> trapezoid = Trapezoidal(10, 2, 2)
+    >>> trapezoid.width
+    10
+    >>> trapezoid.depth
+    2
+    >>> trapezoid.side_slope
+    2
+    """
     def __init__(self, width: Union[int, float],
                  depth: Union[int, float], side_slope: Union[int, float]):
 
