@@ -74,6 +74,9 @@ class TestTriangularChannelGeometry(unittest.TestCase):
     def setUp(self):
         self.triangular = cg.Triangular(depth=2, side_slope=2)
 
+    def test_create_triangular_channel(self):
+        self.triangular = cg.Triangular(depth=2, side_slope=2)
+
     def test_triangular_area(self):
         self.assertEqual(self.triangular.area(), 8)
 
