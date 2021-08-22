@@ -102,18 +102,18 @@ class Rectangular(ChannelXSection):
 
 
 class Triangular(ChannelXSection):
-    def __init__(self, depth: Union[int, float]), slope: Union[int, float])):
+    def __init__(self, depth: Union[int, float]), side_slope: Union[int, float])):
         self.depth = depth
-        self.slope = slope
+        self.side_slope = side_slope
 
     def area(self):
-        return self.slope * self.depth ** 2
+        return self.side_slope * self.depth ** 2
 
     def wetted_perimeter(self):
-        return 2 * self.depth * math.sqrt(1 + self.slope ** 2)
+        return 2 * self.depth * math.sqrt(1 + self.side_slope ** 2)
 
     def top_width(self):
-        return 2 * self.depth * self.slope
+        return 2 * self.depth * self.side_slope
 
     def shape_function(self):
         return 8 / (3 * self.depth)
@@ -121,28 +121,28 @@ class Triangular(ChannelXSection):
 
 class Trapezoidal(ChannelXSection):
     def __init__(self, width: Union[int, float]),
-    depth: Union[int, float]), slope: Union[int, float])):
+    depth: Union[int, float]), side_slope: Union[int, float])):
         self.width = width
         self.depth = depth
-        self.slope = slope
+        self.side_slope = side_slope
 
     def area(self):
-        return (self.width + self.slope * self.depth) * self.depth
+        return (self.width + self.side_slope * self.depth) * self.depth
 
     def wetted_perimeter(self):
         return (self.width
-                + 2 * self.depth * math.sqrt(1 + self.slope ** 2))
+                + 2 * self.depth * math.sqrt(1 + self.side_slope ** 2))
 
     def top_width(self):
-        return self.width + 2 * self.depth * self.slope
+        return self.width + 2 * self.depth * self.side_slope
 
     def shape_function(self):
-        A = math.sqrt(1 + self.slope ** 2)
+        A = math.sqrt(1 + self.side_slope ** 2)
         numerator = (self.top_width()
                      * (5 * self.width + 6 * self.depth * A)
-                     + (4 * self.slope * self.depth ** 2 * A))
+                     + (4 * self.side_slope * self.depth ** 2 * A))
         denominator = (3 * self.depth
-                       * (self.width + self.depth * self.slope)
+                       * (self.width + self.depth * self.side_slope)
                        * (self.width + 2 * self.depth * A))
         return numerator / denominator
 
