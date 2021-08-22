@@ -51,8 +51,7 @@ class ChannelXSection(ABC):
 
 
 class Rectangular(ChannelXSection):
-    """
-    A class to represent rectangular channel cross-sections.
+    """A class to represent rectangular channel cross-sections.
 
     Parameters
     ----------
@@ -61,7 +60,8 @@ class Rectangular(ChannelXSection):
     depth : int or float
         Water surface elevation from the bottom of the channel [m] or [ft]
 
-    Note: Unit consistency and correctness is the user's responsibility.
+    Note: Unit consistency, correctness and compatibiluty is the user's
+    responsibility.
 
     Raises
     ------
