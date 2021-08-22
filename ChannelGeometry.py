@@ -104,6 +104,31 @@ class Rectangular(ChannelXSection):
 
 
 class Triangular(ChannelXSection):
+    """A class to represent symmetrical triangular channel cross-sections.
+
+    Parameters
+    ----------
+    depth : int or float
+        Water surface elevation from the bottom of the channel [m] or [ft]
+    side_slope : int or float
+        Horizontal distance per unit vertical rise of the side
+
+    Note: Unit consistency, correctness and compatibility is the user's
+    responsibility.
+
+    Raises
+    ------
+    ValueError
+    Only accepts positive, real numbers (int or float).
+
+    Examples
+    --------
+    >>> triangle = Triangular(2, 2)
+    >>> triangle.depth
+    2
+    >>> triangle.side_slope
+    2
+    """
 
     def __init__(self, depth: Union[int, float],
                  side_slope: Union[int, float]):
