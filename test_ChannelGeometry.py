@@ -210,6 +210,51 @@ class TestCircularChannelGeometry(unittest.TestCase):
     def setUp(self):
         self.circular = cg.Circular(diameter=2, depth=1)
 
+    def test_create_circular_channel(self):
+        self.circular = cg.Circular(diameter=4, depth=2)
+
+    def test_create_circular_channel_invalid_size(self):
+        with self.assertRaises(ValueError):
+            cg.Circular(diameter=0, depth=1)
+
+        with self.assertRaises(ValueError):
+            cg.Circular(diameter=2, depth=-0.5)
+
+        with self.assertRaises(ValueError):
+            cg.Circular(diameter=-2, depth='foo')
+
+        with self.assertRaises(ValueError):
+            cg.Circular(diameter=-2, depth=2)
+
+        with self.assertRaises(ValueError):
+            cg.Circular(diameter=2, depth=0)
+
+        with self.assertRaises(ValueError):
+            cg.Circular(diameter='foo', depth=-2)
+
+        with self.assertRaises(ValueError):
+            cg.Circular(diameter=2, depth=0)
+
+    def test_create_circular_channel_invalid_depth(self):
+        with self.assertRaises(ValueError):
+            cg.Circular(diameter=1, depth=2)
+
+    def test_create_circular_channel_single_argument(self):
+        with self.assertRaises(TypeError):
+            cg.Circular(diameter=2)
+
+        with self.assertRaises(TypeError):
+            cg.Circular(depth=2)
+
+    def test_create_circular_channel_store_values(self):
+        circle = cg.Circular(diameter=2, depth=1)
+        self.assertEqual(circle.diameter, 2)
+        self.assertEqual(circle.depth, 1)
+
+    def test_create_circular_channel_valid(self):
+        self.assertEqual(self.circular.diameter, 2)
+        self.assertEqual(self.circular.depth, 1)
+
     def test_circular_area(self):
         self.assertEqual(self.circular.area(), math.pi/2)
 
