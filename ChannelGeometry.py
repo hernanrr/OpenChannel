@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import math
-import numpy as np
 from abc import ABC, abstractmethod
 from typing import Union
 
