@@ -256,6 +256,12 @@ class Circular(ChannelXSection):
 
     def __init__(self, diameter: Union[int, float],
                  depth: Union[int, float]):
+
+        if not isinstance(diameter, (float, int)) or np.all(diameter <= 0):
+            raise ValueError('Diameter must be a positive number')
+        if not isinstance(depth, (float, int)) or np.all(depth <= 0):
+            raise ValueError('Depth must be a positive number')
+
         self.diameter = diameter
         self.depth = depth
         self.theta = 2 * math.acos(1 - (2 * depth)/diameter)
