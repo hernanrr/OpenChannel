@@ -161,6 +161,14 @@ class Triangular(ChannelXSection):
 class Trapezoidal(ChannelXSection):
     def __init__(self, width: Union[int, float],
                  depth: Union[int, float], side_slope: Union[int, float]):
+
+        if not isinstance(width, (float, int)) or np.all(width <= 0):
+            raise ValueError('Width must be a positive number')
+        if not isinstance(depth, (float, int)) or np.all(depth <= 0):
+            raise ValueError('Depth must be a positive number')
+        if not isinstance(side_slope, (float, int)) or np.all(side_slope <= 0):
+            raise ValueError('Side slope must be a positive number')
+
         self.width = width
         self.depth = depth
         self.side_slope = side_slope
