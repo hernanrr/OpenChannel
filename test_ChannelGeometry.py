@@ -72,7 +72,7 @@ class TestRectangularChannelGeometry(unittest.TestCase):
 class TestTriangularChannelGeometry(unittest.TestCase):
 
     def setUp(self):
-        self.triangular = cg.Triangular(depth=2, slope=2)
+        self.triangular = cg.Triangular(depth=2, side_slope=2)
 
     def test_triangular_area(self):
         self.assertEqual(self.triangular.area(), 8)
@@ -98,7 +98,7 @@ class TestTriangularChannelGeometry(unittest.TestCase):
 class TestTrapezoidalChannelGeometry(unittest.TestCase):
 
     def setUp(self):
-        self.trapezoidal = cg.Trapezoidal(width=2, depth=2, slope=2)
+        self.trapezoidal = cg.Trapezoidal(width=2, depth=2, side_slope=2)
 
     def test_trapezoidal_area(self):
         self.assertEqual(self.trapezoidal.area(), 12)
