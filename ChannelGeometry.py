@@ -60,13 +60,15 @@ class Rectangular(ChannelXSection):
     depth : int or float
         Water surface elevation from the bottom of the channel [m] or [ft]
 
-    Note: Unit consistency, correctness and compatibility is the user's
-    responsibility.
-
     Raises
     ------
     ValueError
     Only accepts positive, real numbers (int or float).
+
+    Notes
+    -----
+    Unit consistency, correctness and compatibility is the user's
+    responsibility.
 
     Examples
     --------
@@ -113,13 +115,15 @@ class Triangular(ChannelXSection):
     side_slope : int or float
         Horizontal distance per unit vertical rise of the side
 
-    Note: Unit consistency, correctness and compatibility is the user's
-    responsibility.
-
     Raises
     ------
     ValueError
     Only accepts positive, real numbers (int or float).
+
+    Notes
+    -----
+    Unit consistency, correctness and compatibility is the user's
+    responsibility.
 
     Examples
     --------
@@ -132,6 +136,12 @@ class Triangular(ChannelXSection):
 
     def __init__(self, depth: Union[int, float],
                  side_slope: Union[int, float]):
+
+        if not isinstance(depth, (float, int)) or np.all(depth <= 0):
+            raise ValueError('Width must be a positive number')
+        if not isinstance(side_slope, (float, int)) or np.all(side_slope <= 0):
+            raise ValueError('Depth must be a positive number')
+
         self.depth = depth
         self.side_slope = side_slope
 
