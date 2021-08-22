@@ -111,6 +111,10 @@ class TestTriangularChannelGeometry(unittest.TestCase):
         self.assertEqual(triangle.depth, 2)
         self.assertEqual(triangle.side_slope, 2)
 
+    def test_create_triangular_channel_valid(self):
+        self.assertEqual(self.triangular.depth, 2)
+        self.assertEqual(self.triangular.side_slope, 2)
+
     def test_triangular_area(self):
         self.assertEqual(self.triangular.area(), 8)
 
@@ -136,6 +140,49 @@ class TestTrapezoidalChannelGeometry(unittest.TestCase):
 
     def setUp(self):
         self.trapezoidal = cg.Trapezoidal(width=2, depth=2, side_slope=2)
+
+    def test_create_trapezoidal_channel(self):
+        self.trapezoidal = cg.Trapezoidal(width=2, depth=2, side_slope=2)
+
+    def test_create_trapezoidal_channel_invalid_size(self):
+        with self.assertRaises(ValueError):
+            cg.Trapezoidal(width=0, depth=0, side_slope=0)
+
+        with self.assertRaises(ValueError):
+            cg.Trapezoidal(width=2, depth=-2.5, side_slope=2)
+
+        with self.assertRaises(ValueError):
+            cg.Trapezoidal(width=-2, depth='foo', side_slope=2)
+
+        with self.assertRaises(ValueError):
+            cg.Trapezoidal(width=-2, depth=2, side_slope=0)
+
+        with self.assertRaises(ValueError):
+            cg.Trapezoidal(width=2, depth=2, side_slope=-2.5)
+
+        with self.assertRaises(ValueError):
+            cg.Trapezoidal(width=2, depth=-2, side_slope='foo')
+
+        with self.assertRaises(ValueError):
+            cg.Trapezoidal(width=2, depth=-2, side_slope=-2)
+
+    def test_create_trapezoidal_channel_single_argument(self):
+        with self.assertRaises(TypeError):
+            cg.Trapezoidal(width=2, depth=2)
+
+        with self.assertRaises(TypeError):
+            cg.Trapezoidal(width=2, side_slope=2)
+
+    def test_create_trapezoidal_channel_store_values(self):
+        trapezoid = cg.Trapezoidal(width=2, depth=2, side_slope=2)
+        self.assertEqual(trapezoid.width, 2)
+        self.assertEqual(trapezoid.depth, 2)
+        self.assertEqual(trapezoid.side_slope, 2)
+
+    def test_create_trapezoidal_channel_valid(self):
+        self.assertEqual(self.trapezoidal.width, 2)
+        self.assertEqual(self.trapezoidal.depth, 2)
+        self.assertEqual(self.trapezoidal.side_slope, 2)
 
     def test_trapezoidal_area(self):
         self.assertEqual(self.trapezoidal.area(), 12)
