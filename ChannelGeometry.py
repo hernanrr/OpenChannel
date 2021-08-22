@@ -57,9 +57,11 @@ class Rectangular(ChannelXSection):
     Parameters
     ----------
     width : int or float
-        Bottom width of the channel
+        Bottom width of the channel [m] or [ft]
     depth : int or float
-        Water surface elevation measured from the bottom of the channel.
+        Water surface elevation from the bottom of the channel [m] or [ft]
+
+    Note: Unit consistency and correctness is the user's responsibility.
 
     Raises
     ------
