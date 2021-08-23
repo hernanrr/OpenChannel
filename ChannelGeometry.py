@@ -3,6 +3,7 @@
 import math
 from abc import ABC, abstractmethod
 from typing import Union
+import logging
 
 
 class ChannelXSection(ABC):
@@ -10,17 +11,14 @@ class ChannelXSection(ABC):
     @abstractmethod
     def area(self) -> float:
         """Returns the wetted area of the channel cross-section."""
-        pass
 
     @abstractmethod
     def wetted_perimeter(self) -> float:
         """Returns the wetted perimeter of the channel cross-section."""
-        pass
 
     @abstractmethod
     def top_width(self) -> float:
         """Returns the water surface width of the channel cross-section."""
-        pass
 
     @abstractmethod
     def shape_function(self) -> float:
@@ -38,7 +36,6 @@ class ChannelXSection(ABC):
         where R and y are the hydraulic radius and the water depth
         respectively.
         """
-        pass
 
     def hydraulic_radius(self) -> float:
         """Returns the hydraulic radius of the channel cross-section."""
@@ -290,7 +287,7 @@ class Circular(ChannelXSection):
 
 
 def main():
-    pass
+    """ Not implemented yet. """
 
 
 if __name__ == '__main__':
