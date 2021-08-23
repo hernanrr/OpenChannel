@@ -43,3 +43,5 @@ Thumbs.db
 # Python bytecompiled code
 ##########################
 __pycache__
+.coverage
+htmlcov/
