@@ -31,7 +31,6 @@ class TestRectangularChannelGeometry(unittest.TestCase):
 
     def test_create_rectangular_channel_valid(self):
         self.assertEqual(self.rectangular.width, 10)
-        self.assertEqual(self.rectangular.depth, 2)
 
     def test_rectangular_area(self):
         self.assertEqual(self.rectangular.area(), 20)
