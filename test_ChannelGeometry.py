@@ -111,68 +111,51 @@ class TestRectangularChannelGeometry(unittest.TestCase):
 class TestTriangularChannelGeometry(unittest.TestCase):
 
     def setUp(self):
-        self.triangular = cg.Triangular(depth=2, side_slope=2)
+        self.triangular = cg.Triangular(side_slope=2)
 
     def test_create_triangular_channel(self):
-        self.triangular = cg.Triangular(depth=2, side_slope=2)
+        self.triangular = cg.Triangular(side_slope=2)
 
     def test_create_triangular_channel_invalid_size(self):
         with self.assertRaises(ValueError):
-            cg.Triangular(depth=0, side_slope=2)
+            cg.Triangular(side_slope=0)
 
         with self.assertRaises(ValueError):
-            cg.Triangular(depth=-2.5, side_slope=2)
+            cg.Triangular(side_slope=-2)
 
         with self.assertRaises(ValueError):
-            cg.Triangular(depth='foo', side_slope=2)
+            cg.Triangular(side_slope='foo')
 
-        with self.assertRaises(ValueError):
-            cg.Triangular(depth=2, side_slope=0)
-
-        with self.assertRaises(ValueError):
-            cg.Triangular(depth=2, side_slope=-2.5)
-
-        with self.assertRaises(ValueError):
-            cg.Triangular(depth=-2, side_slope='foo')
-
-        with self.assertRaises(ValueError):
-            cg.Triangular(depth=-2, side_slope=-2)
-
-    def test_create_triangular_channel_single_argument(self):
+    def test_create_triangular_channel_no_argument(self):
         with self.assertRaises(TypeError):
-            cg.Triangular(depth=2)
-
-        with self.assertRaises(TypeError):
-            cg.Triangular(side_slope=2)
+            cg.Triangular()
 
     def test_create_triangular_channel_store_values(self):
-        triangle = cg.Triangular(depth=2, side_slope=2)
-        self.assertEqual(triangle.depth, 2)
+        triangle = cg.Triangular(side_slope=2)
         self.assertEqual(triangle.side_slope, 2)
 
     def test_create_triangular_channel_valid(self):
-        self.assertEqual(self.triangular.depth, 2)
         self.assertEqual(self.triangular.side_slope, 2)
 
     def test_triangular_area(self):
-        self.assertEqual(self.triangular.area(), 8)
+        self.assertEqual(self.triangular.area(depth=2), 8)
 
     def test_triangular_wetted_perimeter(self):
-        self.assertEqual(self.triangular.wetted_perimeter(),
+        self.assertEqual(self.triangular.wetted_perimeter(depth=2),
                          8.94427190999916)
 
     def test_triangular_top_width(self):
-        self.assertEqual(self.triangular.top_width(), 8)
+        self.assertEqual(self.triangular.top_width(depth=2), 8)
 
     def test_triangular_hydraulic_radius(self):
-        self.assertEqual(self.triangular.hydraulic_radius(),
+        self.assertEqual(self.triangular.hydraulic_radius(depth=2),
                          0.8944271909999159)
 
     def test_triangular_hydraulic_depth(self):
-        self.assertEqual(self.triangular.hydraulic_depth(), 1)
+        self.assertEqual(self.triangular.hydraulic_depth(depth=2), 1)
 
     def test_triangular_shape_function(self):
-        self.assertEqual(self.triangular.shape_function(), 4/3)
+        self.assertEqual(self.triangular.shape_function(depth=2), 4/3)
 
 
 class TestTrapezoidalChannelGeometry(unittest.TestCase):
