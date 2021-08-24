@@ -157,6 +157,61 @@ class TestTriangularChannelGeometry(unittest.TestCase):
     def test_triangular_shape_function(self):
         self.assertEqual(self.triangular.shape_function(depth=2), 4/3)
 
+    def test_triangular_invalid_method_call(self):
+        with self.assertRaises(ValueError):
+            self.triangular.area(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.triangular.area(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.triangular.area(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.triangular.wetted_perimeter(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.triangular.wetted_perimeter(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.triangular.wetted_perimeter(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.triangular.top_width(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.triangular.top_width(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.triangular.top_width(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.triangular.hydraulic_radius(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.triangular.hydraulic_radius(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.triangular.hydraulic_radius(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.triangular.hydraulic_depth(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.triangular.hydraulic_depth(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.triangular.hydraulic_depth(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.triangular.shape_function(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.triangular.shape_function(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.triangular.shape_function(depth='foo')
+
 
 class TestTrapezoidalChannelGeometry(unittest.TestCase):
 
