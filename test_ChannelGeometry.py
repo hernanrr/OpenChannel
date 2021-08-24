@@ -36,7 +36,7 @@ class TestRectangularChannelGeometry(unittest.TestCase):
         self.assertEqual(self.rectangular.area(y=2), 20)
 
     def test_rectangular_wetted_perimeter(self):
-        self.assertEqual(self.rectangular.wetted_perimeter(), 14)
+        self.assertEqual(self.rectangular.wetted_perimeter(y=2), 14)
 
     def test_rectangular_top_width(self):
         self.assertEqual(self.rectangular.top_width(), 10)
