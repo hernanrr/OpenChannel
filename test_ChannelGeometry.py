@@ -6,7 +6,7 @@ import math
 class TestRectangularChannelGeometry(unittest.TestCase):
 
     def setUp(self):
-        self.rectangular = cg.Rectangular(width=10, depth=2)
+        self.rectangular = cg.Rectangular(width=10)
 
     def test_create_rectangular_channel(self):
         self.rectangular = cg.Rectangular(width=10, depth=2)
