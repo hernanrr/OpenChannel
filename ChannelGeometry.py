@@ -10,7 +10,7 @@ class ChannelXSection(ABC):
     """A class to represent channel cross-sections."""
     @abstractmethod
     def area(self) -> float:
-        """Returns the wetted area of the channel cross-section."""
+        """Returns a function for the area of the channel cross-section."""
 
     @abstractmethod
     def wetted_perimeter(self) -> float:
