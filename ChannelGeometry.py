@@ -39,10 +39,16 @@ class ChannelXSection(ABC):
 
     def hydraulic_radius(self, y) -> float:
         """Returns a function for the hydraulic radius of the channel."""
+        if not isinstance(y, (float, int)) or y <= 0:
+            logging.error('Depth must be a positive number', stack_info=False)
+            raise ValueError('Depth must be a positive number')
         return self.area(y) / self.wetted_perimeter(y)
 
     def hydraulic_depth(self, y) -> float:
         """Returns a function for the hydraulic depth of the channel."""
+        if not isinstance(y, (float, int)) or y <= 0:
+            logging.error('Depth must be a positive number', stack_info=False)
+            raise ValueError('Depth must be a positive number')
         return self.area(y) / self.top_width(y)
 
 
@@ -89,16 +95,23 @@ class Rectangular(ChannelXSection):
             raise ValueError('Depth must be a positive number')
         return y * self.width
 
-    def wetted_perimeter(self) -> float:
-        return lambda y: self.width + 2 * y
+    def wetted_perimeter(self, y) -> float:
+        if not isinstance(y, (float, int)) or y <= 0:
+            logging.error('Depth must be a positive number', stack_info=False)
+            raise ValueError('Depth must be a positive number')        
+        return self.width + 2 * y
 
-    def top_width(self) -> float:
-        return lambda y: self.width
+    def top_width(self, y) -> float:
+        if not isinstance(y, (float, int)) or y <= 0:
+            logging.error('Depth must be a positive number', stack_info=False)
+            raise ValueError('Depth must be a positive number')
+        return self.width
 
-    def shape_function(self) -> float:
-        return (lambda y:
-                (5 * self.width + 6 * y)
-                / (3 * y * self.wetted_perimeter()(y)))
+    def shape_function(self, y) -> float:
+        if not isinstance(y, (float, int)) or y <= 0:
+            logging.error('Depth must be a positive number', stack_info=False)
+            raise ValueError('Depth must be a positive number')
+        return (5 * self.width + 6 * y)/ (3 * y * self.wetted_perimeter()(y)))
 
 
 class Triangular(ChannelXSection):
