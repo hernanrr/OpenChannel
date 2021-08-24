@@ -18,7 +18,7 @@ class ChannelXSection(ABC):
 
     @abstractmethod
     def top_width(self) -> float:
-        """Returns the water surface width of the channel cross-section."""
+        """Returns  a function forthe water surface width of the channel."""
 
     @abstractmethod
     def shape_function(self) -> float:
