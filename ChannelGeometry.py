@@ -89,29 +89,30 @@ class Rectangular(ChannelXSection):
 
         self.width = float(width)
 
-    def area(self, y) -> float:
-        if not isinstance(y, (float, int)) or y <= 0:
+    def area(self, depth) -> float:
+        if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
-        return y * self.width
+        return depth * self.width
 
-    def wetted_perimeter(self, y) -> float:
-        if not isinstance(y, (float, int)) or y <= 0:
+    def wetted_perimeter(self, depth) -> float:
+        if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')        
-        return self.width + 2 * y
+        return self.width + 2 * depth
 
-    def top_width(self, y) -> float:
-        if not isinstance(y, (float, int)) or y <= 0:
+    def top_width(self, depth) -> float:
+        if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
         return self.width
 
-    def shape_function(self, y) -> float:
-        if not isinstance(y, (float, int)) or y <= 0:
+    def shape_function(self, depth) -> float:
+        if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
-        return (5 * self.width + 6 * y)/ (3 * y * self.wetted_perimeter()(y)))
+        return ((5 * self.width + 6 * depth)
+                / (3 * depth * self.wetted_perimeter()(depth)))
 
 
 class Triangular(ChannelXSection):
