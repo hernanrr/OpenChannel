@@ -43,7 +43,7 @@ class ChannelXSection(ABC):
 
     def hydraulic_depth(self) -> float:
         """Returns the hydraulic depth of the channel cross-section."""
-        return self.area() / self.top_width()
+        return lambda y: self.area()(y) / self.top_width()(y)
 
 
 class Rectangular(ChannelXSection):
