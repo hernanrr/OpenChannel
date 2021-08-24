@@ -97,9 +97,9 @@ class Rectangular(ChannelXSection):
         return lambda y: self.width
 
     def shape_function(self) -> float:
-        numerator = 5 * self.width + 6 * self.depth
-        denominator = 3 * self.depth * self.wetted_perimeter()
-        return numerator / denominator
+        return (lambda y:
+                (5 * self.width + 6 * y)
+                / (3 * y * self.wetted_perimeter()(y)))
 
 
 class Triangular(ChannelXSection):

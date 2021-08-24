@@ -49,7 +49,7 @@ class TestRectangularChannelGeometry(unittest.TestCase):
         self.assertEqual(self.rectangular.hydraulic_depth(y=2), 2)
 
     def test_rectangular_shape_function(self):
-        self.assertEqual(self.rectangular.shape_function(y=2),
+        self.assertEqual(self.rectangular.shape_function()(y=2),
                          0.7380952380952381)
 
 
