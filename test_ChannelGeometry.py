@@ -32,24 +32,24 @@ class TestRectangularChannelGeometry(unittest.TestCase):
     def test_create_rectangular_channel_valid(self):
         self.assertEqual(self.rectangular.width, 10)
 
-    def test_rectangular_area(self):
-        self.assertEqual(self.rectangular.area()(y=2), 20)
+    def test_rectangular_area(self, depth):
+        self.assertEqual(self.rectangular.area(depth=2), 20)
 
-    def test_rectangular_wetted_perimeter(self):
-        self.assertEqual(self.rectangular.wetted_perimeter(y=2), 14)
+    def test_rectangular_wetted_perimeter(self, depth):
+        self.assertEqual(self.rectangular.wetted_perimeter(dept=2), 14)
 
-    def test_rectangular_top_width(self):
-        self.assertEqual(self.rectangular.top_width()(y=2), 10)
+    def test_rectangular_top_width(self, depth):
+        self.assertEqual(self.rectangular.top_width(depth=2), 10)
 
-    def test_rectangular_hydraulic_radius(self):
-        self.assertEqual(self.rectangular.hydraulic_radius()(y=2),
+    def test_rectangular_hydraulic_radius(self, depth):
+        self.assertEqual(self.rectangular.hydraulic_radius(depth=2),
                          1.4285714285714286)
 
-    def test_rectangular_hydraulic_depth(self):
-        self.assertEqual(self.rectangular.hydraulic_depth()(y=2), 2)
+    def test_rectangular_hydraulic_depth(self, depth):
+        self.assertEqual(self.rectangular.hydraulic_depth(depth=2), 2)
 
-    def test_rectangular_shape_function(self):
-        self.assertEqual(self.rectangular.shape_function()(y=2),
+    def test_rectangular_shape_function(self, depth):
+        self.assertEqual(self.rectangular.shape_function(depth=2),
                          0.7380952380952381)
 
 
