@@ -85,10 +85,6 @@ class Rectangular(ChannelXSection):
         if not isinstance(width, (float, int)) or width <= 0:
             logging.error('Width must be a positive number', stack_info=False)
             raise ValueError('Width must be a positive number')
-        # if not isinstance(depth, (float, int)) or depth <= 0:
-        #     logging.error('Depth must be a positive number', stack_info=False)
-        #     raise ValueError('Depth must be a positive number')
-
         self.width = float(width)
 
     def area(self, depth: Union[int, float]) -> Callable[[float], float]:
