@@ -94,7 +94,7 @@ class Rectangular(ChannelXSection):
         return lambda y: self.width + 2 * y
 
     def top_width(self) -> float:
-        return self.width
+        return lambda y: self.width
 
     def shape_function(self) -> float:
         numerator = 5 * self.width + 6 * self.depth
