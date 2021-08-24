@@ -216,70 +216,124 @@ class TestTriangularChannelGeometry(unittest.TestCase):
 class TestTrapezoidalChannelGeometry(unittest.TestCase):
 
     def setUp(self):
-        self.trapezoidal = cg.Trapezoidal(width=2, depth=2, side_slope=2)
+        self.trapezoidal = cg.Trapezoidal(width=2, side_slope=2)
 
     def test_create_trapezoidal_channel(self):
-        self.trapezoidal = cg.Trapezoidal(width=2, depth=2, side_slope=2)
+        self.trapezoidal = cg.Trapezoidal(width=2, side_slope=2)
 
     def test_create_trapezoidal_channel_invalid_size(self):
         with self.assertRaises(ValueError):
-            cg.Trapezoidal(width=0, depth=0, side_slope=0)
+            cg.Trapezoidal(width=0, side_slope=2)
 
         with self.assertRaises(ValueError):
-            cg.Trapezoidal(width=2, depth=-2.5, side_slope=2)
+            cg.Trapezoidal(width=-2, side_slope=2)
 
         with self.assertRaises(ValueError):
-            cg.Trapezoidal(width=-2, depth='foo', side_slope=2)
+            cg.Trapezoidal(width=-'foo', side_slope=2)
 
         with self.assertRaises(ValueError):
-            cg.Trapezoidal(width=-2, depth=2, side_slope=0)
+            cg.Trapezoidal(width=2, side_slope=0)
 
         with self.assertRaises(ValueError):
-            cg.Trapezoidal(width=2, depth=2, side_slope=-2.5)
+            cg.Trapezoidal(width=2, side_slope=-2.5)
 
         with self.assertRaises(ValueError):
-            cg.Trapezoidal(width=2, depth=-2, side_slope='foo')
+            cg.Trapezoidal(width=2,  side_slope='foo')
 
-        with self.assertRaises(ValueError):
-            cg.Trapezoidal(width=2, depth=-2, side_slope=-2)
-
-    def test_create_trapezoidal_channel_single_argument(self):
+    def test_create_trapezoidal_channel_wrong_signature(self):
         with self.assertRaises(TypeError):
-            cg.Trapezoidal(width=2, depth=2)
+            cg.Trapezoidal(width=2)
 
         with self.assertRaises(TypeError):
-            cg.Trapezoidal(width=2, side_slope=2)
+            cg.Trapezoidal(side_slope=2)
+
+        with self.assertRaises(TypeError):
+            cg.Trapezoidal()
 
     def test_create_trapezoidal_channel_store_values(self):
-        trapezoid = cg.Trapezoidal(width=2, depth=2, side_slope=2)
+        trapezoid = cg.Trapezoidal(width=2, side_slope=2)
         self.assertEqual(trapezoid.width, 2)
-        self.assertEqual(trapezoid.depth, 2)
         self.assertEqual(trapezoid.side_slope, 2)
 
     def test_create_trapezoidal_channel_valid(self):
         self.assertEqual(self.trapezoidal.width, 2)
-        self.assertEqual(self.trapezoidal.depth, 2)
         self.assertEqual(self.trapezoidal.side_slope, 2)
 
     def test_trapezoidal_area(self):
-        self.assertEqual(self.trapezoidal.area(), 12)
+        self.assertEqual(self.trapezoidal.area(depth=2), 12)
 
     def test_trapezoidal_wetted_perimeter(self):
-        self.assertEqual(self.trapezoidal.wetted_perimeter(),
+        self.assertEqual(self.trapezoidal.wetted_perimeter(depth=2),
                          10.94427190999916)
 
     def test_trapezoidal_top_width(self):
-        self.assertEqual(self.trapezoidal.top_width(), 10)
+        self.assertEqual(self.trapezoidal.top_width(depth=2), 10)
 
     def test_trapezoidal_hydraulic_radius(self):
-        self.assertEqual(self.trapezoidal.hydraulic_radius(),
+        self.assertEqual(self.trapezoidal.hydraulic_radius(depth=2),
                          1.0964639857893408)
 
     def test_trapezoidal_hydraulic_depth(self):
-        self.assertEqual(self.trapezoidal.hydraulic_depth(), 1.2)
+        self.assertEqual(self.trapezoidal.hydraulic_depth(depth=2), 1.2)
 
     def test_trapezoidal_shape_function(self):
-        self.assertEqual(self.trapezoidal.shape_function(), 1.1164702214327413)
+        self.assertEqual(self.trapezoidal.shape_function(depth=2),
+                         1.1164702214327413)
+
+    def test_trapezoidal_invalid_method_call(self):
+        with self.assertRaises(ValueError):
+            self.trapezoidal.area(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.area(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.area(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.wetted_perimeter(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.wetted_perimeter(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.wetted_perimeter(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.top_width(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.top_width(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.top_width(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.hydraulic_radius(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.hydraulic_radius(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.hydraulic_radius(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.hydraulic_depth(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.hydraulic_depth(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.hydraulic_depth(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.shape_function(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.shape_function(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.trapezoidal.shape_function(depth='foo')
 
 
 class TestCircularChannelGeometry(unittest.TestCase):
