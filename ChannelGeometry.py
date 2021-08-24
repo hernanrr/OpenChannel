@@ -6,6 +6,13 @@ from typing import Union, Callable
 import logging
 
 
+def check_depth_validity(depth):
+    if not isinstance(depth, (float, int)) or depth <= 0:
+        logging.error('Depth must be a positive number', stack_info=False)
+        raise ValueError('Depth must be a positive number')
+    return None
+
+
 class ChannelXSection(ABC):
     """A class to represent channel cross-sections."""
     @abstractmethod
@@ -41,16 +48,12 @@ class ChannelXSection(ABC):
 
     def hydraulic_radius(self, depth) -> float:
         """Returns a function for the hydraulic radius of the channel."""
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return self.area(depth) / self.wetted_perimeter(depth)
 
     def hydraulic_depth(self, depth) -> float:
         """Returns a function for the hydraulic depth of the channel."""
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return self.area(depth) / self.top_width(depth)
 
 
@@ -88,29 +91,21 @@ class Rectangular(ChannelXSection):
         self.width = float(width)
 
     def area(self, depth: Union[int, float]) -> Callable[[float], float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return depth * self.width
 
     def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return self.width + 2 * depth
 
     def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return self.width
 
     def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return ((5 * self.width + 6 * depth)
                 / (3 * depth * self.wetted_perimeter(depth)))
 
@@ -150,29 +145,21 @@ class Triangular(ChannelXSection):
         self.side_slope = side_slope
 
     def area(self, depth: Union[int, float]) -> Callable[[float], float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return self.side_slope * depth ** 2
 
     def wetted_perimeter(self,
                          depth: Union[int, float]) -> Callable[[float], float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return 2 * depth * math.sqrt(1 + self.side_slope ** 2)
 
     def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return 2 * depth * self.side_slope
 
     def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return 8 / (3 * depth)
 
 
@@ -219,29 +206,21 @@ class Trapezoidal(ChannelXSection):
         self.side_slope = side_slope
 
     def area(self, depth: Union[int, float]) -> Callable[[float], float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return (self.width + self.side_slope * depth) * depth
 
     def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return (self.width + 2 * depth * math.sqrt(1 + self.side_slope ** 2))
 
     def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         return self.width + 2 * depth * self.side_slope
 
     def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
+        check_depth_validity(depth)
         A = math.sqrt(1 + self.side_slope ** 2)
         numerator = (self.top_width(depth)
                      * (5 * self.width + 6 * depth * A)
@@ -259,8 +238,6 @@ class Circular(ChannelXSection):
     ----------
     diameter : int or float
         Channel diameter or pipe inner diameter [m] or [ft]
-    depth : int or float
-        Water surface elevation from lowest point of the channel [m] or [ft]
 
     Raises
     ------
@@ -277,42 +254,51 @@ class Circular(ChannelXSection):
     >>> circle = Circular(0.2, 0.1)
     >>> circle.diameter
     0.2
-    >>> circle.depth
-    0.1
     """
 
-    def __init__(self, diameter: Union[int, float],
-                 depth: Union[int, float]) -> None:
+    def __init__(self, diameter: Union[int, float]) -> None:
 
         if not isinstance(diameter, (float, int)) or diameter <= 0:
             logging.error('Diameter must be a positive number',
                           stack_info=False)
             raise ValueError('Diameter must be a positive number')
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')
-        if depth > diameter:
-            logging.error('Depth exceeds diameter', stack_info=False)
-            raise ValueError('Depth must be smaller or equal than diameter')
 
         self.diameter = diameter
-        self.depth = depth
-        self.theta = 2 * math.acos(1 - (2 * depth) / diameter)
 
     def area(self, depth: Union[int, float]) -> Callable[[float], float]:
+        check_depth_validity(depth)
+        if depth > self.diameter:
+            logging.error('Depth exceeds diameter', stack_info=False)
+            raise ValueError('Depth must be smaller or equal than diameter')
+        self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         return ((1 / 8)
                 * (self.theta - math.sin(self.theta))
                 * self.diameter ** 2)
 
     def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
+        check_depth_validity(depth)
+        if depth > self.diameter:
+            logging.error('Depth exceeds diameter', stack_info=False)
+            raise ValueError('Depth must be smaller or equal than diameter')
+        self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         return 1 / 2 * self.theta * self.diameter
 
     def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
+        check_depth_validity(depth)
+        if depth > self.diameter:
+            logging.error('Depth exceeds diameter', stack_info=False)
+            raise ValueError('Depth must be smaller or equal than diameter')
+        self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         return math.sin(self.theta / 2) * self.diameter
 
     def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
+        check_depth_validity(depth)
+        if depth > self.diameter:
+            logging.error('Depth exceeds diameter', stack_info=False)
+            raise ValueError('Depth must be smaller or equal than diameter')
+        self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         numerator = (4 * (2 * math.sin(self.theta)
                           + 3 * self.theta
                           - 5 * self.theta * math.cos(self.theta)))
