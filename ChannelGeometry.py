@@ -259,35 +259,35 @@ class Circular(ChannelXSection):
     def area(self, depth: Union[int, float]) -> Callable[[float], float]:
         check_valid_positive_number(Depth=depth)
         check_depth_le_diameter(self.diameter, depth)
-        self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
+        theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         return ((1 / 8)
-                * (self.theta - math.sin(self.theta))
+                * (theta - math.sin(theta))
                 * self.diameter ** 2)
 
     def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
         check_valid_positive_number(Depth=depth)
         check_depth_le_diameter(self.diameter, depth)
-        self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
-        return 1 / 2 * self.theta * self.diameter
+        theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
+        return 1 / 2 * theta * self.diameter
 
     def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
         check_valid_positive_number(Depth=depth)
         check_depth_le_diameter(self.diameter, depth)
-        self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
-        return math.sin(self.theta / 2) * self.diameter
+        theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
+        return math.sin(theta / 2) * self.diameter
 
     def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
         check_valid_positive_number(Depth=depth)
         check_depth_le_diameter(self.diameter, depth)
-        self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
-        numerator = (4 * (2 * math.sin(self.theta)
-                          + 3 * self.theta
-                          - 5 * self.theta * math.cos(self.theta)))
-        denominator = (3 * self.diameter * self.theta
-                       * (self.theta - math.sin(self.theta))
-                       * math.sin(self.theta / 2))
+        theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
+        numerator = (4 * (2 * math.sin(theta)
+                          + 3 * theta
+                          - 5 * theta * math.cos(theta)))
+        denominator = (3 * self.diameter * theta
+                       * (theta - math.sin(theta))
+                       * math.sin(theta / 2))
         return numerator / denominator
 
 
