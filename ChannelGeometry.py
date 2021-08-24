@@ -13,6 +13,13 @@ def check_depth_validity(depth):
     return None
 
 
+def check_depth_le_diameter(diameter, depth):
+    if depth > diameter:
+        logging.error('Depth exceeds diameter', stack_info=False)
+        raise ValueError('Depth must be less than or equal to diameter.')
+    return None
+
+
 class ChannelXSection(ABC):
     """A class to represent channel cross-sections."""
     @abstractmethod
@@ -267,9 +274,7 @@ class Circular(ChannelXSection):
 
     def area(self, depth: Union[int, float]) -> Callable[[float], float]:
         check_depth_validity(depth)
-        if depth > self.diameter:
-            logging.error('Depth exceeds diameter', stack_info=False)
-            raise ValueError('Depth must be smaller or equal than diameter')
+        check_depth_le_diameter(self.diameter, depth)
         self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         return ((1 / 8)
                 * (self.theta - math.sin(self.theta))
@@ -278,26 +283,20 @@ class Circular(ChannelXSection):
     def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
         check_depth_validity(depth)
-        if depth > self.diameter:
-            logging.error('Depth exceeds diameter', stack_info=False)
-            raise ValueError('Depth must be smaller or equal than diameter')
+        check_depth_le_diameter(self.diameter, depth)
         self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         return 1 / 2 * self.theta * self.diameter
 
     def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
         check_depth_validity(depth)
-        if depth > self.diameter:
-            logging.error('Depth exceeds diameter', stack_info=False)
-            raise ValueError('Depth must be smaller or equal than diameter')
+        check_depth_le_diameter(self.diameter, depth)
         self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         return math.sin(self.theta / 2) * self.diameter
 
     def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
         check_depth_validity(depth)
-        if depth > self.diameter:
-            logging.error('Depth exceeds diameter', stack_info=False)
-            raise ValueError('Depth must be smaller or equal than diameter')
+        check_depth_le_diameter(self.diameter, depth)
         self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         numerator = (4 * (2 * math.sin(self.theta)
                           + 3 * self.theta
