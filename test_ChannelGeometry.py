@@ -339,71 +339,127 @@ class TestTrapezoidalChannelGeometry(unittest.TestCase):
 class TestCircularChannelGeometry(unittest.TestCase):
 
     def setUp(self):
-        self.circular = cg.Circular(diameter=2, depth=1)
+        self.circular = cg.Circular(diameter=2)
 
     def test_create_circular_channel(self):
-        self.circular = cg.Circular(diameter=4, depth=2)
+        self.circular = cg.Circular(diameter=2)
 
     def test_create_circular_channel_invalid_size(self):
         with self.assertRaises(ValueError):
-            cg.Circular(diameter=0, depth=1)
+            cg.Circular(diameter=0)
 
         with self.assertRaises(ValueError):
-            cg.Circular(diameter=2, depth=-0.5)
+            cg.Circular(diameter=-2)
 
         with self.assertRaises(ValueError):
-            cg.Circular(diameter=-2, depth='foo')
+            cg.Circular(diameter='foo')
 
-        with self.assertRaises(ValueError):
-            cg.Circular(diameter=-2, depth=2)
+    # def test_create_circular_channel_invalid_depth(self):
+    #     with self.assertRaises(ValueError):
+    #         cg.Circular(diameter=1, depth=2)
 
-        with self.assertRaises(ValueError):
-            cg.Circular(diameter=2, depth=0)
-
-        with self.assertRaises(ValueError):
-            cg.Circular(diameter='foo', depth=-2)
-
-        with self.assertRaises(ValueError):
-            cg.Circular(diameter=2, depth=0)
-
-    def test_create_circular_channel_invalid_depth(self):
-        with self.assertRaises(ValueError):
-            cg.Circular(diameter=1, depth=2)
-
-    def test_create_circular_channel_single_argument(self):
+    def test_create_circular_channel_wrong_signature(self):
         with self.assertRaises(TypeError):
-            cg.Circular(diameter=2)
-
-        with self.assertRaises(TypeError):
-            cg.Circular(depth=2)
+            cg.Circular()
 
     def test_create_circular_channel_store_values(self):
-        circle = cg.Circular(diameter=2, depth=1)
+        circle = cg.Circular(diameter=2)
         self.assertEqual(circle.diameter, 2)
-        self.assertEqual(circle.depth, 1)
 
     def test_create_circular_channel_valid(self):
         self.assertEqual(self.circular.diameter, 2)
-        self.assertEqual(self.circular.depth, 1)
-        self.assertGreaterEqual(self.circular.diameter, self.circular.depth)
 
     def test_circular_area(self):
-        self.assertEqual(self.circular.area(), math.pi/2)
+        self.assertEqual(self.circular.area(depth=1), math.pi/2)
 
     def test_circular_wetted_perimeter(self):
-        self.assertEqual(self.circular.wetted_perimeter(), math.pi)
+        self.assertEqual(self.circular.wetted_perimeter(depth=1), math.pi)
 
     def test_circular_top_width(self):
-        self.assertEqual(self.circular.top_width(), 2)
+        self.assertEqual(self.circular.top_width(depth=1), 2)
 
     def test_circular_hydraulic_radius(self):
-        self.assertEqual(self.circular.hydraulic_radius(), 0.5)
+        self.assertEqual(self.circular.hydraulic_radius(depth=1), 0.5)
 
     def test_circular_hydraulic_depth(self):
-        self.assertEqual(self.circular.hydraulic_depth(), math.pi/4)
+        self.assertEqual(self.circular.hydraulic_depth(depth=1), math.pi/4)
 
     def test_circular_shape_function(self):
-        self.assertEqual(self.circular.shape_function(), 1.6976527263135504)
+        self.assertEqual(self.circular.shape_function(depth=1),
+                         1.6976527263135504)
+
+    def test_circular_invalid_method_call(self):
+        with self.assertRaises(ValueError):
+            self.circular.area(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.circular.area(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.circular.area(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.circular.area(depth=2.5)
+
+        with self.assertRaises(ValueError):
+            self.circular.wetted_perimeter(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.circular.wetted_perimeter(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.circular.wetted_perimeter(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.circular.wetted_perimeter(depth=2.5)
+
+        with self.assertRaises(ValueError):
+            self.circular.top_width(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.circular.top_width(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.circular.top_width(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.circular.top_width(depth=2.5)
+
+        with self.assertRaises(ValueError):
+            self.circular.hydraulic_radius(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.circular.hydraulic_radius(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.circular.hydraulic_radius(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.circular.hydraulic_radius(depth=2.5)
+
+        with self.assertRaises(ValueError):
+            self.circular.hydraulic_depth(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.circular.hydraulic_depth(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.circular.hydraulic_depth(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.circular.hydraulic_depth(depth=2.5)
+
+        with self.assertRaises(ValueError):
+            self.circular.shape_function(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.circular.shape_function(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.circular.shape_function(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.circular.shape_function(depth=2.5)
 
 
 if __name__ == '__main__':
