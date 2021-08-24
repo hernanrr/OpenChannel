@@ -37,19 +37,19 @@ class ChannelXSection(ABC):
         respectively.
         """
 
-    def hydraulic_radius(self, y) -> float:
+    def hydraulic_radius(self, depth) -> float:
         """Returns a function for the hydraulic radius of the channel."""
-        if not isinstance(y, (float, int)) or y <= 0:
+        if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
-        return self.area(y) / self.wetted_perimeter(y)
+        return self.area(depth) / self.wetted_perimeter(depth)
 
-    def hydraulic_depth(self, y) -> float:
+    def hydraulic_depth(self, depth) -> float:
         """Returns a function for the hydraulic depth of the channel."""
-        if not isinstance(y, (float, int)) or y <= 0:
+        if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
-        return self.area(y) / self.top_width(y)
+        return self.area(depth) / self.top_width(depth)
 
 
 class Rectangular(ChannelXSection):
