@@ -23,7 +23,7 @@ class TestRectangularChannelGeometry(unittest.TestCase):
 
     def test_create_rectangular_channel_single_side(self):
         with self.assertRaises(TypeError):
-            cg.Rectangular(width=0)
+            cg.Rectangular()
 
         with self.assertRaises(TypeError):
             cg.Rectangular(depth=0)
