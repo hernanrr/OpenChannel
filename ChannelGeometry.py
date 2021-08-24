@@ -6,10 +6,12 @@ from typing import Union, Callable
 import logging
 
 
-def check_depth_validity(depth):
-    if not isinstance(depth, (float, int)) or depth <= 0:
-        logging.error('Depth must be a positive number', stack_info=False)
-        raise ValueError('Depth must be a positive number')
+def check_valid_positive_number(**kwargs):
+    for key, value in kwargs.items():
+        if not isinstance(value, (float, int)) or value <= 0:
+            message = f'{key} must be a positive number'
+            logging.error(message, stack_info=False)
+            raise ValueError(message)
     return None
 
 
@@ -55,12 +57,12 @@ class ChannelXSection(ABC):
 
     def hydraulic_radius(self, depth) -> float:
         """Returns a function for the hydraulic radius of the channel."""
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return self.area(depth) / self.wetted_perimeter(depth)
 
     def hydraulic_depth(self, depth) -> float:
         """Returns a function for the hydraulic depth of the channel."""
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return self.area(depth) / self.top_width(depth)
 
 
@@ -91,28 +93,25 @@ class Rectangular(ChannelXSection):
     """
     def __init__(self, width: Union[int, float]) -> None:
         """Constructor for rectangular channel cross-section."""
-
-        if not isinstance(width, (float, int)) or width <= 0:
-            logging.error('Width must be a positive number', stack_info=False)
-            raise ValueError('Width must be a positive number')
+        check_valid_positive_number(Width=width)
         self.width = float(width)
 
     def area(self, depth: Union[int, float]) -> Callable[[float], float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return depth * self.width
 
     def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return self.width + 2 * depth
 
     def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return self.width
 
     def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return ((5 * self.width + 6 * depth)
                 / (3 * depth * self.wetted_perimeter(depth)))
 
@@ -143,30 +142,25 @@ class Triangular(ChannelXSection):
     """
 
     def __init__(self, side_slope: Union[int, float]) -> None:
-
-        if not isinstance(side_slope, (float, int)) or side_slope <= 0:
-            logging.error('Side slope must be a positive number',
-                          stack_info=False)
-            raise ValueError('Side slope must be a positive number')
-
+        check_valid_positive_number(**{'Side slope': side_slope})
         self.side_slope = side_slope
 
     def area(self, depth: Union[int, float]) -> Callable[[float], float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return self.side_slope * depth ** 2
 
     def wetted_perimeter(self,
                          depth: Union[int, float]) -> Callable[[float], float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return 2 * depth * math.sqrt(1 + self.side_slope ** 2)
 
     def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return 2 * depth * self.side_slope
 
     def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return 8 / (3 * depth)
 
 
@@ -201,33 +195,28 @@ class Trapezoidal(ChannelXSection):
     def __init__(self, width: Union[int, float],
                  side_slope: Union[int, float]) -> None:
 
-        if not isinstance(width, (float, int)) or width <= 0:
-            logging.error('Width must be a positive number', stack_info=False)
-            raise ValueError('Width must be a positive number')
-        if not isinstance(side_slope, (float, int)) or side_slope <= 0:
-            logging.error('Side slope must be a positive number',
-                          stack_info=False)
-            raise ValueError('Side slope must be a positive number')
+        check_valid_positive_number(Width=width)
+        check_valid_positive_number(**{'Side slope': side_slope})
 
         self.width = width
         self.side_slope = side_slope
 
     def area(self, depth: Union[int, float]) -> Callable[[float], float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return (self.width + self.side_slope * depth) * depth
 
     def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return (self.width + 2 * depth * math.sqrt(1 + self.side_slope ** 2))
 
     def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         return self.width + 2 * depth * self.side_slope
 
     def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         A = math.sqrt(1 + self.side_slope ** 2)
         numerator = (self.top_width(depth)
                      * (5 * self.width + 6 * depth * A)
@@ -264,16 +253,11 @@ class Circular(ChannelXSection):
     """
 
     def __init__(self, diameter: Union[int, float]) -> None:
-
-        if not isinstance(diameter, (float, int)) or diameter <= 0:
-            logging.error('Diameter must be a positive number',
-                          stack_info=False)
-            raise ValueError('Diameter must be a positive number')
-
+        check_valid_positive_number(Diameter=diameter)
         self.diameter = diameter
 
     def area(self, depth: Union[int, float]) -> Callable[[float], float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         check_depth_le_diameter(self.diameter, depth)
         self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         return ((1 / 8)
@@ -282,20 +266,20 @@ class Circular(ChannelXSection):
 
     def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         check_depth_le_diameter(self.diameter, depth)
         self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         return 1 / 2 * self.theta * self.diameter
 
     def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         check_depth_le_diameter(self.diameter, depth)
         self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         return math.sin(self.theta / 2) * self.diameter
 
     def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
-        check_depth_validity(depth)
+        check_valid_positive_number(Depth=depth)
         check_depth_le_diameter(self.diameter, depth)
         self.theta = 2 * math.acos(1 - (2 * depth) / self.diameter)
         numerator = (4 * (2 * math.sin(self.theta)
