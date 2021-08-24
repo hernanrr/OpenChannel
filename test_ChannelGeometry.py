@@ -25,9 +25,6 @@ class TestRectangularChannelGeometry(unittest.TestCase):
         with self.assertRaises(TypeError):
             cg.Rectangular()
 
-        with self.assertRaises(TypeError):
-            cg.Rectangular(depth=0)
-
     def test_create_rectangular_channel_store_values(self):
         r = cg.Rectangular(width=10, depth=2)
         self.assertEqual(r.width, 10)
