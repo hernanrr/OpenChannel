@@ -88,7 +88,7 @@ class Rectangular(ChannelXSection):
         self.width = float(width)
 
     def area(self) -> float:
-        return self.width * self.depth
+        return lambda y: y * self.width
 
     def wetted_perimeter(self) -> float:
         return self.width + 2 * self.depth
