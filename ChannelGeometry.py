@@ -53,8 +53,6 @@ class Rectangular(ChannelXSection):
     ----------
     width : int or float
         Bottom width of the channel [m] or [ft]
-    depth : int or float
-        Water surface elevation from the bottom of the channel [m] or [ft]
 
     Raises
     ------
@@ -68,11 +66,9 @@ class Rectangular(ChannelXSection):
 
     Examples
     --------
-    >>> foo = Rectangular(10, 2)
-    >>> foo.width
-    10
-    >>> foo.depth
-    2
+    >>> rectangle = Rectangular(10)
+    >>> rectangle.width
+    10.0
 
     """
     def __init__(self, width: Union[int, float]) -> None:
