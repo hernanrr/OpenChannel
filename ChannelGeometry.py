@@ -13,7 +13,8 @@ class ChannelXSection(ABC):
         """Returns a function for the area of the channel cross-section."""
 
     @abstractmethod
-    def wetted_perimeter(self) -> float:
+    def wetted_perimeter(self, depth: Union[int, float]) -> callable[[float],
+                                                                     float]:
         """Returns a function for wetted perimeter of the channel."""
 
     @abstractmethod
@@ -95,7 +96,8 @@ class Rectangular(ChannelXSection):
             raise ValueError('Depth must be a positive number')
         return depth * self.width
 
-    def wetted_perimeter(self, depth) -> float:
+    def wetted_perimeter(self, depth: Union[int, float]) -> callable[[float],
+                                                                     float]:
         if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
@@ -161,7 +163,8 @@ class Triangular(ChannelXSection):
     def area(self, depth: Union[int, float]) -> callable[[float], float]:
         return self.side_slope * self.depth ** 2
 
-    def wetted_perimeter(self) -> float:
+    def wetted_perimeter(self, depth: Union[int, float]) -> callable[[float],
+                                                                     float]:
         return 2 * self.depth * math.sqrt(1 + self.side_slope ** 2)
 
     def top_width(self) -> float:
@@ -224,7 +227,8 @@ class Trapezoidal(ChannelXSection):
     def area(self, depth: Union[int, float]) -> callable[[float], float]:
         return (self.width + self.side_slope * self.depth) * self.depth
 
-    def wetted_perimeter(self) -> float:
+    def wetted_perimeter(self, depth: Union[int, float]) -> callable[[float],
+                                                                     float]:
         return (self.width
                 + 2 * self.depth * math.sqrt(1 + self.side_slope ** 2))
 
@@ -294,7 +298,8 @@ class Circular(ChannelXSection):
                 * (self.theta - math.sin(self.theta))
                 * self.diameter ** 2)
 
-    def wetted_perimeter(self):
+    def wetted_perimeter(self, depth: Union[int, float]) -> callable[[float],
+                                                                     float]:
         return 1 / 2 * self.theta * self.diameter
 
     def top_width(self) -> float:
