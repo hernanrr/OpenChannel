@@ -271,7 +271,7 @@ class Circular(ChannelXSection):
             logging.error('Depth must be a positive number', stack_info=True)
             raise ValueError('Depth must be a positive number')
         if depth > diameter:
-            logging.error('Depth exceeds diameter'. stack_info=True)
+            logging.error('Depth exceeds diameter', stack_info=True)
             raise ValueError('Depth must be smaller or equal than diameter')
 
         self.diameter = diameter
