@@ -2,27 +2,27 @@
 
 import math
 from abc import ABC, abstractmethod
-from typing import Union
+from typing import Union, Callable
 import logging
 
 
 class ChannelXSection(ABC):
     """A class to represent channel cross-sections."""
     @abstractmethod
-    def area(self, depth: Union[int, float]) -> callable[[float], float]:
+    def area(self, depth: Union[int, float]) -> Callable[[float], float]:
         """Returns a function for the area of the channel cross-section."""
 
     @abstractmethod
-    def wetted_perimeter(self, depth: Union[int, float]) -> callable[[float],
+    def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
         """Returns a function for wetted perimeter of the channel."""
 
     @abstractmethod
-    def top_width(self, depth: Union[int, float]) -> callable[[float], float]:
+    def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
         """Returns  a function forthe water surface width of the channel."""
 
     @abstractmethod
-    def shape_function(self, depth: Union[int, float]) -> callable[[float],
+    def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
         r"""Returns a function for the channel shape function of the channel.
 
@@ -91,26 +91,26 @@ class Rectangular(ChannelXSection):
 
         self.width = float(width)
 
-    def area(self, depth: Union[int, float]) -> callable[[float], float]:
+    def area(self, depth: Union[int, float]) -> Callable[[float], float]:
         if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
         return depth * self.width
 
-    def wetted_perimeter(self, depth: Union[int, float]) -> callable[[float],
+    def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
         if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
         return self.width + 2 * depth
 
-    def top_width(self, depth: Union[int, float]) -> callable[[float], float]:
+    def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
         if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
         return self.width
 
-    def shape_function(self, depth: Union[int, float]) -> callable[[float],
+    def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
         if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
@@ -162,17 +162,17 @@ class Triangular(ChannelXSection):
         self.depth = depth
         self.side_slope = side_slope
 
-    def area(self, depth: Union[int, float]) -> callable[[float], float]:
+    def area(self, depth: Union[int, float]) -> Callable[[float], float]:
         return self.side_slope * self.depth ** 2
 
-    def wetted_perimeter(self, depth: Union[int, float]) -> callable[[float],
+    def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
         return 2 * self.depth * math.sqrt(1 + self.side_slope ** 2)
 
-    def top_width(self, depth: Union[int, float]) -> callable[[float], float]:
+    def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
         return 2 * self.depth * self.side_slope
 
-    def shape_function(self, depth: Union[int, float]) -> callable[[float],
+    def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
         return 8 / (3 * self.depth)
 
@@ -227,18 +227,18 @@ class Trapezoidal(ChannelXSection):
         self.depth = depth
         self.side_slope = side_slope
 
-    def area(self, depth: Union[int, float]) -> callable[[float], float]:
+    def area(self, depth: Union[int, float]) -> Callable[[float], float]:
         return (self.width + self.side_slope * self.depth) * self.depth
 
-    def wetted_perimeter(self, depth: Union[int, float]) -> callable[[float],
+    def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
         return (self.width
                 + 2 * self.depth * math.sqrt(1 + self.side_slope ** 2))
 
-    def top_width(self, depth: Union[int, float]) -> callable[[float], float]:
+    def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
         return self.width + 2 * self.depth * self.side_slope
 
-    def shape_function(self, depth: Union[int, float]) -> callable[[float],
+    def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
         A = math.sqrt(1 + self.side_slope ** 2)
         numerator = (self.top_width()
@@ -297,19 +297,19 @@ class Circular(ChannelXSection):
         self.depth = depth
         self.theta = 2 * math.acos(1 - (2 * depth) / diameter)
 
-    def area(self, depth: Union[int, float]) -> callable[[float], float]:
+    def area(self, depth: Union[int, float]) -> Callable[[float], float]:
         return ((1 / 8)
                 * (self.theta - math.sin(self.theta))
                 * self.diameter ** 2)
 
-    def wetted_perimeter(self, depth: Union[int, float]) -> callable[[float],
+    def wetted_perimeter(self, depth: Union[int, float]) -> Callable[[float],
                                                                      float]:
         return 1 / 2 * self.theta * self.diameter
 
-    def top_width(self, depth: Union[int, float]) -> callable[[float], float]:
+    def top_width(self, depth: Union[int, float]) -> Callable[[float], float]:
         return math.sin(self.theta / 2) * self.diameter
 
-    def shape_function(self, depth: Union[int, float]) -> callable[[float],
+    def shape_function(self, depth: Union[int, float]) -> Callable[[float],
                                                                    float]:
         numerator = (4 * (2 * math.sin(self.theta)
                           + 3 * self.theta
