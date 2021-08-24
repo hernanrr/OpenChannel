@@ -22,7 +22,7 @@ class ChannelXSection(ABC):
 
     @abstractmethod
     def shape_function(self) -> float:
-        r"""Returns the channel shape function of the cross-section.
+        r"""Returns a function forthe channel shape function of the channel.
 
         Notes
         -----
