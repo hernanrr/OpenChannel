@@ -98,7 +98,7 @@ class Rectangular(ChannelXSection):
     def wetted_perimeter(self, depth) -> float:
         if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
-            raise ValueError('Depth must be a positive number')        
+            raise ValueError('Depth must be a positive number')
         return self.width + 2 * depth
 
     def top_width(self, depth) -> float:
@@ -112,7 +112,7 @@ class Rectangular(ChannelXSection):
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
         return ((5 * self.width + 6 * depth)
-                / (3 * depth * self.wetted_perimeter()(depth)))
+                / (3 * depth * self.wetted_perimeter(depth)))
 
 
 class Triangular(ChannelXSection):
