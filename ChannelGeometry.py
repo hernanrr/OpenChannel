@@ -22,7 +22,7 @@ class ChannelXSection(ABC):
 
     @abstractmethod
     def shape_function(self) -> float:
-        r"""Returns a function forthe channel shape function of the channel.
+        r"""Returns a function for the channel shape function of the channel.
 
         Notes
         -----
@@ -38,7 +38,7 @@ class ChannelXSection(ABC):
         """
 
     def hydraulic_radius(self) -> float:
-        """Returns the hydraulic radius of the channel cross-section."""
+        """Returns a function for the hydraulic radius of the channel."""
         return lambda y: self.area()(y) / self.wetted_perimeter()(y)
 
     def hydraulic_depth(self) -> float:
