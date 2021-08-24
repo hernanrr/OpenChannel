@@ -196,7 +196,7 @@ class Trapezoidal(ChannelXSection):
                  side_slope: Union[int, float]) -> None:
 
         if not isinstance(width, (float, int)) or width <= 0:
-            logging.error(('Width must be a positive number', stack_info=True)
+            logging.error('Width must be a positive number', stack_info=True)
             raise ValueError('Width must be a positive number')
         if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=True)
