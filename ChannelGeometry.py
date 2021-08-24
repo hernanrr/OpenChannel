@@ -18,7 +18,7 @@ class ChannelXSection(ABC):
         """Returns a function for wetted perimeter of the channel."""
 
     @abstractmethod
-    def top_width(self) -> float:
+    def top_width(self, depth: Union[int, float]) -> callable[[float], float]:
         """Returns  a function forthe water surface width of the channel."""
 
     @abstractmethod
@@ -103,7 +103,7 @@ class Rectangular(ChannelXSection):
             raise ValueError('Depth must be a positive number')
         return self.width + 2 * depth
 
-    def top_width(self, depth) -> float:
+    def top_width(self, depth: Union[int, float]) -> callable[[float], float]:
         if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
@@ -167,7 +167,7 @@ class Triangular(ChannelXSection):
                                                                      float]:
         return 2 * self.depth * math.sqrt(1 + self.side_slope ** 2)
 
-    def top_width(self) -> float:
+    def top_width(self, depth: Union[int, float]) -> callable[[float], float]:
         return 2 * self.depth * self.side_slope
 
     def shape_function(self) -> float:
@@ -232,7 +232,7 @@ class Trapezoidal(ChannelXSection):
         return (self.width
                 + 2 * self.depth * math.sqrt(1 + self.side_slope ** 2))
 
-    def top_width(self) -> float:
+    def top_width(self, depth: Union[int, float]) -> callable[[float], float]:
         return self.width + 2 * self.depth * self.side_slope
 
     def shape_function(self) -> float:
@@ -302,7 +302,7 @@ class Circular(ChannelXSection):
                                                                      float]:
         return 1 / 2 * self.theta * self.diameter
 
-    def top_width(self) -> float:
+    def top_width(self, depth: Union[int, float]) -> callable[[float], float]:
         return math.sin(self.theta / 2) * self.diameter
 
     def shape_function(self) -> float:
