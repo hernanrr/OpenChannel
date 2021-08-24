@@ -243,7 +243,7 @@ class Trapezoidal(ChannelXSection):
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
         A = math.sqrt(1 + self.side_slope ** 2)
-        numerator = (self.top_width()
+        numerator = (self.top_width(depth)
                      * (5 * self.width + 6 * depth * A)
                      + (4 * self.side_slope * depth ** 2 * A))
         denominator = (3 * depth

@@ -229,7 +229,7 @@ class TestTrapezoidalChannelGeometry(unittest.TestCase):
             cg.Trapezoidal(width=-2, side_slope=2)
 
         with self.assertRaises(ValueError):
-            cg.Trapezoidal(width=-'foo', side_slope=2)
+            cg.Trapezoidal(width='foo', side_slope=2)
 
         with self.assertRaises(ValueError):
             cg.Trapezoidal(width=2, side_slope=0)
