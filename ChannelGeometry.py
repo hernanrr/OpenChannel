@@ -9,7 +9,7 @@ import logging
 class ChannelXSection(ABC):
     """A class to represent channel cross-sections."""
     @abstractmethod
-    def area(self) -> float:
+    def area(self, depth: Union[int, float]) -> callable[[float], float]:
         """Returns a function for the area of the channel cross-section."""
 
     @abstractmethod
@@ -89,7 +89,7 @@ class Rectangular(ChannelXSection):
 
         self.width = float(width)
 
-    def area(self, depth) -> float:
+    def area(self, depth: Union[int, float]) -> callable[[float], float]:
         if not isinstance(depth, (float, int)) or depth <= 0:
             logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
@@ -158,7 +158,7 @@ class Triangular(ChannelXSection):
         self.depth = depth
         self.side_slope = side_slope
 
-    def area(self) -> float:
+    def area(self, depth: Union[int, float]) -> callable[[float], float]:
         return self.side_slope * self.depth ** 2
 
     def wetted_perimeter(self) -> float:
@@ -221,7 +221,7 @@ class Trapezoidal(ChannelXSection):
         self.depth = depth
         self.side_slope = side_slope
 
-    def area(self) -> float:
+    def area(self, depth: Union[int, float]) -> callable[[float], float]:
         return (self.width + self.side_slope * self.depth) * self.depth
 
     def wetted_perimeter(self) -> float:
@@ -289,7 +289,7 @@ class Circular(ChannelXSection):
         self.depth = depth
         self.theta = 2 * math.acos(1 - (2 * depth) / diameter)
 
-    def area(self) -> float:
+    def area(self, depth: Union[int, float]) -> callable[[float], float]:
         return ((1 / 8)
                 * (self.theta - math.sin(self.theta))
                 * self.diameter ** 2)
