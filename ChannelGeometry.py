@@ -140,8 +140,7 @@ class Triangular(ChannelXSection):
     2
     """
 
-    def __init__(self, depth: Union[int, float],
-                 side_slope: Union[int, float]) -> None:
+    def __init__(self, side_slope: Union[int, float]) -> None:
 
         if not isinstance(side_slope, (float, int)) or side_slope <= 0:
             logging.error('Side slope must be a positive number',
