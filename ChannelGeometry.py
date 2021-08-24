@@ -79,10 +79,10 @@ class Rectangular(ChannelXSection):
         """Constructor for rectangular channel cross-section."""
 
         if not isinstance(width, (float, int)) or width <= 0:
-            logging.error('Width must be a positive number', stack_info=True)
+            logging.error('Width must be a positive number', stack_info=False)
             raise ValueError('Width must be a positive number')
         # if not isinstance(depth, (float, int)) or depth <= 0:
-        #     logging.error('Depth must be a positive number', stack_info=True)
+        #     logging.error('Depth must be a positive number', stack_info=False)
         #     raise ValueError('Depth must be a positive number')
 
         self.width = float(width)
@@ -135,11 +135,11 @@ class Triangular(ChannelXSection):
                  side_slope: Union[int, float]) -> None:
 
         if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=True)
+            logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
         if not isinstance(side_slope, (float, int)) or side_slope <= 0:
             logging.error('Side slope must be a positive number',
-                          stack_info=True)
+                          stack_info=False)
             raise ValueError('Side slope must be a positive number')
 
         self.depth = depth
@@ -194,14 +194,14 @@ class Trapezoidal(ChannelXSection):
                  side_slope: Union[int, float]) -> None:
 
         if not isinstance(width, (float, int)) or width <= 0:
-            logging.error('Width must be a positive number', stack_info=True)
+            logging.error('Width must be a positive number', stack_info=False)
             raise ValueError('Width must be a positive number')
         if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=True)
+            logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
         if not isinstance(side_slope, (float, int)) or side_slope <= 0:
             logging.error('Side slope must be a positive number',
-                          stack_info=True)
+                          stack_info=False)
             raise ValueError('Side slope must be a positive number')
 
         self.width = width
@@ -263,13 +263,13 @@ class Circular(ChannelXSection):
 
         if not isinstance(diameter, (float, int)) or diameter <= 0:
             logging.error('Diameter must be a positive number',
-                          stack_info=True)
+                          stack_info=False)
             raise ValueError('Diameter must be a positive number')
         if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=True)
+            logging.error('Depth must be a positive number', stack_info=False)
             raise ValueError('Depth must be a positive number')
         if depth > diameter:
-            logging.error('Depth exceeds diameter', stack_info=True)
+            logging.error('Depth exceeds diameter', stack_info=False)
             raise ValueError('Depth must be smaller or equal than diameter')
 
         self.diameter = diameter
