@@ -75,19 +75,17 @@ class Rectangular(ChannelXSection):
     2
 
     """
-    def __init__(self, width: Union[int, float],
-                 depth: Union[int, float]) -> None:
+    def __init__(self, width: Union[int, float]) -> None:
         """Constructor for rectangular channel cross-section."""
 
         if not isinstance(width, (float, int)) or width <= 0:
             logging.error('Width must be a positive number', stack_info=True)
             raise ValueError('Width must be a positive number')
-        if not isinstance(depth, (float, int)) or depth <= 0:
-            logging.error('Depth must be a positive number', stack_info=True)
-            raise ValueError('Depth must be a positive number')
+        # if not isinstance(depth, (float, int)) or depth <= 0:
+        #     logging.error('Depth must be a positive number', stack_info=True)
+        #     raise ValueError('Depth must be a positive number')
 
         self.width = float(width)
-        self.depth = float(depth)
 
     def area(self) -> float:
         return self.width * self.depth
