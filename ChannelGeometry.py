@@ -309,7 +309,7 @@ class Circular(ChannelXSection):
     def top_width(self, depth: Union[int, float]) -> callable[[float], float]:
         return math.sin(self.theta / 2) * self.diameter
 
-        def shape_function(self, depth: Union[int, float]) -> callable[[float],
+    def shape_function(self, depth: Union[int, float]) -> callable[[float],
                                                                    float]:
         numerator = (4 * (2 * math.sin(self.theta)
                           + 3 * self.theta
