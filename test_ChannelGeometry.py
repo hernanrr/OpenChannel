@@ -52,6 +52,61 @@ class TestRectangularChannelGeometry(unittest.TestCase):
         self.assertEqual(self.rectangular.shape_function(depth=2),
                          0.7380952380952381)
 
+    def test_rectangular_invalid_method_call(self):
+        with self.assertRaises(ValueError):
+            self.rectangular.area(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.area(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.area(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.rectangular.wetted_perimeter(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.wetted_perimeter(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.wetted_perimeter(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.rectangular.top_width(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.top_width(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.top_width(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.rectangular.hydraulic_radius(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.hydraulic_radius(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.hydraulic_radius(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.rectangular.hydraulic_depth(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.hydraulic_depth(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.hydraulic_depth(depth='foo')
+
+        with self.assertRaises(ValueError):
+            self.rectangular.shape_function(depth=0)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.shape_function(depth=-2.5)
+
+        with self.assertRaises(ValueError):
+            self.rectangular.shape_function(depth='foo')
+
 
 class TestTriangularChannelGeometry(unittest.TestCase):
 
