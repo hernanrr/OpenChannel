@@ -21,7 +21,7 @@ class TestRectangularChannelGeometry(unittest.TestCase):
         with self.assertRaises(ValueError):
             cg.Rectangular(width='foo')
 
-    def test_create_rectangular_channel_single_side(self):
+    def test_create_rectangular_channel_invalid(self):
         with self.assertRaises(TypeError):
             cg.Rectangular()
 
