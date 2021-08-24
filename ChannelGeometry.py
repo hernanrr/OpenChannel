@@ -14,7 +14,7 @@ class ChannelXSection(ABC):
 
     @abstractmethod
     def wetted_perimeter(self) -> float:
-        """Returns the wetted perimeter of the channel cross-section."""
+        """Returns a function for wetted perimeter of the channel."""
 
     @abstractmethod
     def top_width(self) -> float:
